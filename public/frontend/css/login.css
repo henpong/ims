@@ -1,0 +1,590 @@
+body{
+
+    background-image: url('../images/mall2.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    text-align: center;
+    color: white;
+    padding-top: 60px;
+    font-family: sans-serif;
+    margin-top: 50px;
+    
+}
+
+
+.container{
+    width: 450px;
+    height: 450px;
+    text-align: center;
+    background-color: rgba(52, 73, 94, 0.7);
+    margin-top: 70px;
+    border-radius: 10px;
+    margin: 0 auto;
+    padding-bottom: 1px;
+    
+}
+
+.container img{
+    width: 110px;
+    height: 100px;
+    margin-top: -50px;
+    margin-bottom: 30px;
+    border-radius: 200px;
+   
+}
+
+
+input[type="email"]{
+    font-size: 15px;
+    border-radius: 5px;
+    height: 45px;
+    width: 250px;
+    margin-left: 25px;
+    margin-bottom: 30px;
+    padding-left: 40px;
+    background-color: #fff;
+    
+}
+input[type="password"]{
+    font-size: 15px;
+    border-radius: 5px;
+    height: 45px;
+    width: 250px;
+    margin-bottom: 30px;
+    padding-left: 40px;
+    background-color: #fff;
+    
+}
+select{
+    font-size: 15px;
+    border-radius: 5px;
+    height: 35px;
+    width: 290px;
+    margin-bottom: 30px;
+    padding-left: 20px;
+    margin-left: 15px;
+    background-color: #fff;
+    
+}
+.form-input::before{
+
+    content: "\f007";
+    position: absolute;
+    font-family: "FontAwesome";
+    padding-left: 85px;
+    color: #071738;
+    padding-top: 15px;
+    font-size: 20px;
+    
+}
+.password::before{
+
+    content: "\f023";
+    position: absolute;
+    font-family: "FontAwesome";
+    padding-left: 90px;
+    color: #071738;
+    padding-top: 15px;
+    font-size: 20px;
+
+}
+
+.alert-success{
+    text-align: center;
+    width: 65%;
+    height: 30px;
+    padding-left: 5px;
+    padding-top: 10px;
+    margin-left: 100px;
+    margin-bottom: 20px;
+    background-color: #0c4b01;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.alert-danger{
+    text-align: center;
+    width: 65%;
+    height: 30px;
+    padding-left: 5px;
+    padding-top: 10px;
+    margin-left: 100px;
+    margin-bottom: 20px;
+    background-color: #b80202;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+
+button{
+
+    padding: 12px 30px;
+    color: #ffffff;
+    border: none;
+    background-color: #071738;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 45px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+
+button[type="submit"]:hover{
+    color: #00ffff;
+    /* background-color: #00ffff; */
+    font-size: 15px;
+    font-weight: bolder;
+}
+button[type="reset"]:hover{
+    color: #00ffff;
+    /* background-color: #00ffff; */
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+ p a.admin_log{
+    text-decoration: none;
+    outline: none;
+    color: #00ffff;
+    font-size: 20px;
+}
+ p a.admin_log:hover{
+    font-weight: bolder;
+    color: #071738;
+}
+
+
+#footer{
+    border-top: 40px;
+    text-align: center;
+    color: #ffffff;
+    padding-top: 60px;
+    font-size: 14px;
+}
+
+
+
+
+
+
+/*Make Visible on Mobile Devices*/
+
+@media (min-width: 200px) and (max-width: 860px){
+
+    
+    body{
+        background-image: url('../images/mall2.jpg');
+        background-size: 100% 50%;
+        background-position: center;
+        background-color: rgb(13,14,29);
+        margin-top: 150px; 
+        text-align: center;
+        
+    }
+
+    .container {
+
+        width: 300px;
+        height: 300px;
+        font-size: 25px;
+        
+    }
+
+
+    .container img{
+        width: 100px;
+        height: 100px;
+        margin-top: -200px;
+        margin-bottom: -20px;
+        border-radius: 100px;
+       
+    }
+
+
+    label{
+        font-size: 15px;
+        padding-top: 10px;
+    }
+
+    .form-input,.password,.branch{
+        display: inline-flex;
+    }
+
+    input[type="email"],input[type="password"]{
+    font-size: 12px;
+    border-radius: 10px;
+    height: 30px;
+    width: 150px;
+    margin-bottom: 10px;
+    padding-left: 30px;
+    background-color: #fff;
+    
+    }
+
+
+    .form-control{
+
+     height: 33px;
+     width: 180px;
+     font-size: 12px;
+     margin-bottom: 10px;
+     background-color: #fff;
+     border-radius: 10px;
+     padding-left: 1px;
+
+    }
+
+
+    .form-input::before{
+
+        padding-left: 75px;
+        padding-top: 8px;
+        font-size: 20px;
+        
+    }
+
+
+    .password::before{
+
+        padding-left: 75px;
+        padding-top: 8px;
+        font-size: 20px;
+
+    }
+
+
+    button{
+
+        padding: 10px 20px;
+        color: #ffffff;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        margin-left: 20px;
+
+    }
+
+
+    #message{
+        width: 80%;
+        color: red;
+        background-color: pink;
+        font-weight: normal;
+        margin-left: 10px;
+        font-size: 15px;
+    }
+
+
+     p {
+        text-decoration: none;
+        outline: none;
+        font-size: 10px;
+    }
+
+    p a.admin_log{
+        text-decoration: none;
+        outline: none;
+        color: #00ffff;
+        font-size: 12px;
+    }
+
+
+    button[type="submit"]:hover{
+        color: #ff00ff;
+    }
+
+
+
+    /*Admin Index Page*/
+    
+
+    #footer{
+        font-size: 10px;
+    }
+
+
+}
+
+
+@media (min-width: 860px) and (max-width: 997px){
+
+    
+    body{
+
+    background-size: 100% auto;
+    background-position: center;
+    background-color: rgb(13,14,29);
+    margin-top: -100px; 
+    text-align: center;
+    padding-top: 200px;
+
+    }
+
+    .container {
+
+        width: 350px;
+        height: 350px;
+        font-size: 25px;
+        
+    }
+
+
+    .container img{
+        width: 100px;
+        height: 100px;
+        margin-top: -300px;
+        margin-bottom: -20px;
+        
+    }
+
+
+    label{
+        font-size: 15px;
+        padding-top: 10px;
+    }
+
+    .form-input,.password,.branch{
+        display: inline-flex;
+    }
+
+    input[type="text"],input[type="password"]{
+    font-size: 12px;
+    border-radius: 10px;
+    height: 30px;
+    width: 150px;
+    margin-bottom: 20px;
+    padding-left: 30px;
+    background-color: #fff;
+    
+    }
+
+
+    .form-control{
+
+     height: 33px;
+     width: 180px;
+     font-size: 12px;
+     margin-bottom: 20px;
+     background-color: #fff;
+     border-radius: 10px;
+     padding-left: 2px;
+
+    }
+
+
+    .form-input::before{
+
+        padding-left: 75px;
+        padding-top: 8px;
+        font-size: 20px;
+        
+    }
+
+
+    .password::before{
+
+        padding-left: 75px;
+        padding-top: 8px;
+        font-size: 20px;
+
+    }
+
+
+    button{
+
+        padding: 10px 20px;
+        color: #ffffff;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        margin-left: 20px;
+
+    }
+
+
+    #message{
+        width: 80%;
+        color: red;
+        background-color: pink;
+        font-weight: normal;
+        margin-left: 35px;
+        font-size: 15px;
+    }
+
+
+     p {
+        text-decoration: none;
+        outline: none;
+        font-size: 12px;
+    }
+
+    p a.admin_log{
+        text-decoration: none;
+        outline: none;
+        color: #00ffff;
+        font-size: 16px;
+    }
+
+
+    button[type="submit"]:hover{
+        color: #ff00ff;
+    }
+
+
+
+    /*Admin Index Page*/
+    
+
+    #footer{
+        font-size: 20px;
+        padding-top: 100px;
+        /*margin-bottom: 100px;*/
+    }
+}
+
+
+
+@media (min-width: 997px) and (max-width: 1365px){
+
+    body{
+
+    background-size: 100% auto;
+    background-position: center;
+    background-color: rgb(13,14,29);
+    margin-top: 60px; 
+    text-align: center;
+    padding-top: 70px;
+
+    }
+
+    .container {
+
+        width: 400px;
+        height: 350px;
+        font-size: 25px;
+        
+    }
+
+
+    .container img{
+        width: 100px;
+        height: 100px;
+        margin-top: -300px;
+        margin-bottom: -20px;
+        
+    }
+
+
+    label{
+        font-size: 20px;
+        padding-top: 10px;
+    }
+
+    .form-input,.password,.branch{
+        display: inline-flex;
+    }
+
+    input[type="text"],input[type="password"]{
+    font-size: 12px;
+    border-radius: 10px;
+    height: 33px;
+    width: 200px;
+    margin-bottom: 20px;
+    padding-left: 30px;
+    background-color: #fff;
+    
+    }
+
+
+    .form-control{
+
+     height: 35px;
+     width: 220px;
+     font-size: 12px;
+     margin-bottom: 20px;
+     background-color: #fff;
+     border-radius: 10px;
+     padding-left: 2px;
+
+    }
+
+
+    .form-input::before{
+
+        padding-left: 100px;
+        padding-top: 8px;
+        font-size: 25px;
+        
+    }
+
+
+    .password::before{
+
+        padding-left: 100px;
+        padding-top: 8px;
+        font-size: 25px;
+
+    }
+
+
+    button{
+
+        padding: 12px 30px;
+        color: #ffffff;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        margin-left: 20px;
+
+    }
+
+
+    #message{
+        width: 80%;
+        color: red;
+        background-color: pink;
+        font-weight: normal;
+        margin-left: 35px;
+        font-size: 15px;
+    }
+
+
+     p {
+        text-decoration: none;
+        outline: none;
+        font-size: 12px;
+    }
+
+    p a.admin_log{
+        text-decoration: none;
+        outline: none;
+        color: #00ffff;
+        font-size: 16px;
+    }
+
+
+    button[type="submit"]:hover{
+        color: #ff00ff;
+    }
+
+
+
+    /*Admin Index Page*/
+    
+
+    #footer{
+        font-size: 20px;
+        padding-bottom: 150px;
+        /*margin-bottom: 100px;*/
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+

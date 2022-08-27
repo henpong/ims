@@ -1,0 +1,232 @@
+body{
+    text-align: center;
+    /* color: white;
+    background: #000000; */
+    padding-top: 140px;
+    font-family: sans-serif;
+    margin-top: 5px;
+}
+
+label.wel_come{
+    color: #000422;
+    margin-bottom: 2px;
+    margin-top: 200px;
+    font-size: 25px;
+    
+}
+
+label.wel_inv{
+    color: white;
+    padding-top: 100px;
+    margin-bottom: 2px;
+    margin-top: 200px;
+    border-top: 40px;
+    font-size: 70px;
+}
+
+label.wel_chi{
+    color: white;
+    padding-top: 100px;
+    margin-bottom: 2px;
+    margin-top: 200px;
+    font-size: 20px;
+}
+
+
+label.wel_track{
+    color: white;
+    padding-top: 100px;
+    padding-bottom: 30px;
+    margin-bottom: 5px;
+    margin-top: 200px;
+    font-size: 14px;
+}
+
+.button{
+    padding: 15px 30px;
+    color: #ffffff;
+    border: none;
+    background-color: rgb(65, 5, 65);
+    margin-top: -900px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-style: italic;
+}
+
+
+/*Admin Index Page*/
+label.warn{
+    font-size: 30px;
+
+}
+
+label.go{
+    font-size: 30px;
+}
+
+label.go a{
+    font-size: 40px;
+    text-decoration: none;
+    color: #990199;
+}
+
+label.go_else{
+    font-size: 40px;
+}
+
+label.go_pro{
+    font-size: 30px;
+}
+
+label.go_pro a{
+    font-size: 40px;
+    text-decoration: none;
+    color: #0d8a02;
+}
+
+h3{
+    font-size: 20px;
+}
+
+footer{
+	border-top: 40px;
+	text-align: center;
+	color: #000422;
+    padding-top: 70px;
+    font-size: 12px;
+}
+
+
+/*Make Visible on Mobile Devices*/
+
+@media (min-width: 200px) and (max-width: 400px){
+
+	
+    label.wel_come{
+        font-size: 18px;
+    
+    }
+
+    label.wel_inv{
+        font-size: 20px;
+
+    }
+
+    label.wel_chi{
+        font-size: 13px;
+    }
+
+
+    label.wel_track{
+        font-size: 10px;
+    }
+
+    .button{
+        padding: 10px 15px;
+    }
+
+
+
+    /*Admin Index Page*/
+    label.warn{
+        font-size: 30px;
+
+    }
+
+    label.go{
+        font-size: 16px;
+    }
+
+    label.go a{
+        font-size: 20px;
+    }
+
+    label.go_else{
+        font-size: 20px;
+    }
+
+    label.go_pro{
+        font-size: 17px;
+    }
+
+    label.go_pro a{
+        font-size: 20px;
+    }
+
+    h3{
+        font-size: 15px;
+    }
+
+
+    footer{
+        font-size: 8px;
+    }
+
+}
+
+
+@media (min-width: 400px) and (max-width: 991px){
+
+    label.wel_come{
+        font-size: 20px;
+    
+    }
+
+    label.wel_inv{
+        font-size: 30px;
+
+    }
+
+    label.wel_chi{
+        font-size: 18px;
+    }
+
+
+    label.wel_track{
+        font-size: 15px;
+    }
+
+    .button{
+        padding: 13px 25px;
+    }
+
+
+
+
+    /*Admin Index Page*/
+    label.warn{
+        font-size: 30px;
+
+    }
+
+    label.go{
+        font-size: 16px;
+    }
+
+    label.go a{
+        font-size: 20px;
+    }
+
+    label.go_else{
+        font-size: 20px;
+    }
+
+    label.go_pro{
+        font-size: 17px;
+    }
+
+    label.go_pro a{
+        font-size: 20px;
+    }
+
+    h3{
+        font-size: 15px;
+    }
+
+
+    footer{
+        font-size: 10px;
+    }
+}

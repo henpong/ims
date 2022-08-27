@@ -1,0 +1,262 @@
+/* RECEIPT CSS */
+body{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: #000;
+}
+*{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: #000;
+}
+.invoice{
+  overflow-x: hidden !important;
+}
+#invoice-POS {
+    box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
+    padding: 5mm;
+    margin-left: 15px;
+    margin-right: 0;
+    width: 100mm;
+    background: #FFF;
+    overflow: hidden !important;
+  }
+  /* #invoice-POS ::selection {
+    background: #f31544;
+    color: #FFF;
+  }
+  #invoice-POS ::moz-selection {
+    background: #f31544;
+    color: #FFF;
+  } */
+  /* #invoice-POS h1 {
+    font-size: 1.5em;
+    color: #222;
+  }
+  #invoice-POS h2 {
+    font-size: .9em;
+  } */
+  #invoice-POS h3 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 2em;
+    text-transform: uppercase;
+  } 
+  #invoice-POS p {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 12px;
+    color: #000;
+    line-height: 1.2em;
+    padding-top: 0;
+    margin-top: 0;
+  }
+  #invoice-POS .copy{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 10px;
+    /* font-weight: bolder; */
+  }
+  #invoice-POS .cust-info{
+    display: inline-flex;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 11px;
+    padding-top: 3px;
+  }
+  #invoice-POS .cust{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 11px;
+  }
+  #invoice-POS .cust-info .cust-info-2{
+    margin-left: 72px;
+  }
+  #invoice-POS .cust-info .cust-info-3{
+    margin-left: 40px;
+  }
+  #invoice-POS .cust-info .cust-info-4{
+    margin-left: 47px;
+  }
+  #invoice-POS .cust-info .cust-info-5{
+    margin-left: 54px;
+  }
+  #invoice-POS .cust-info .cust-info-6{
+    margin-left: 88px;
+  }
+  #invoice-POS .cust-info .cust-info-7{
+    margin-left: 88px;
+  }
+  #invoice-POS .cust-info .cust-info-8{
+    margin-left: 45px;
+  }
+
+  /* #invoice-POS #top, #invoice-POS #mid, #invoice-POS #bot {
+    border-bottom: 1px solid #EEE;
+  } */
+  .divider{
+    width: 100%;
+    color: rgb(194, 192, 192);
+    padding-top: 0;
+    margin-top: 0;
+    font-weight: bolder;
+  }
+  /* #invoice-POS #top {
+    min-height: 80px;
+  } */
+  /* #invoice-POS #mid {
+    min-height: 80px;
+  } */
+  /* #invoice-POS #bot {
+    min-height: 50px;
+  } */
+  #invoice-POS #top .logo {
+    background: url('../img/logo.jpg') no-repeat;
+    height: 100px;
+    width: 100px;
+    background-size: 100px 100px;
+  }
+  #invoice-POS .info {
+    display: block;
+    margin-left: 0;
+  }
+  #invoice-POS .title {
+    float: right;
+  }
+  #invoice-POS .title p {
+    text-align: right;
+  }
+  #invoice-POS table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  /* #invoice-POS #table .tabletitle .item td h4{
+    font-size: 2px;
+  } */
+  #invoice-POS .tabletitle {
+    /* font-size: .5em; */
+    background: #EEE;
+  }
+  #invoice-POS .service {
+    border-bottom: 1px solid #EEE;
+  }
+  #invoice-POS .table-heading{
+    background: #EEE;
+    border-top-width: 0;
+    border-bottom: 1px solid;
+    border-color: #ebedf2!important;
+    padding: 0 5px!important;
+    height: 60px;
+    vertical-align: middle!important;
+  }
+  #invoice-POS .table-heading .item{
+    /* width: 10mm; */
+    text-align: center;
+    font-size: 13px;
+    /* line-height: 30px; */
+    border-top-width: 0;
+    border-bottom: 1px solid;
+    border-color: #ebedf2!important;
+    padding: 0 18px!important;
+    height: 60px;
+    vertical-align: middle!important;
+  }
+  #invoice-POS .table-heading .pcode{
+    /* width: 40mm; */
+    text-align: center;
+    font-size: 13px;
+    /* line-height: 30px; */
+    border-top-width: 0;
+    border-bottom: 1px solid;
+    border-color: #ebedf2!important;
+    padding: 0 12px!important;
+    height: 60px;
+    vertical-align: middle!important;
+  }
+  #invoice-POS .table-heading .pname{
+    /* width: 40mm; */
+    text-align: center;
+    font-size: 13px;
+    /* line-height: 30px; */
+    border-color: #ebedf2!important;
+    padding: 0 12px!important;
+    height: 60px;
+    vertical-align: middle!important;
+  }
+  #invoice-POS .table-heading .price{
+    /* width: 15mm; */
+    text-align: center;
+    font-size: 13px;
+    /* line-height: 30px; */
+    border-color: #ebedf2!important;
+    padding: 0 12px!important;
+    height: 60px;
+    vertical-align: middle!important;
+  }
+  #invoice-POS .table-heading .discount{
+    /* width: 15mm; */
+    text-align: center;
+    font-size: 13px;
+  }
+  #invoice-POS .tableitem .itemtextno {
+    /* width: 10mm; */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 13px;
+    padding-top: 10px;
+    text-align: center;
+    vertical-align: middle!important;
+    color: #000;
+  }
+  #invoice-POS .tableitem .itemtextcode {
+    /* width: 40mm; */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.2em;
+    padding-top: 10px;
+    color: #000;
+    /* text-align: center; */
+  }
+  #invoice-POS .tableitem .itemtextname {
+    /* width: 40mm; */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 13px;
+    padding-top: 10px;
+    color: #000;
+    /* text-align: center; */
+  }
+  #invoice-POS .tableitem .itemtextpx {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 13px;
+    padding-top: 10px;
+    text-align: right;
+    vertical-align: right!important;
+    color: #000;
+  }
+
+  #invoice-POS .tabletitle .subtotal{
+    /* width: 700mm; */
+    font-size: 15px;
+    /* padding-top: 4px; */
+    text-align: left;
+  }
+  #invoice-POS .tabletitle .payment{
+    /* width: 300mm; */
+    font-size: 15px;
+    /* padding-top: 4px; */
+    text-align: right;
+  }
+  #invoice-POS #legalcopy {
+    margin-top: 5mm;
+  }
+  #invoice-POS #legalcopy p.legal{
+    font-size: 14px;
+  }
+  .print-buttons{
+    /* display: inline-flex; */
+    margin-right:620px;
+    margin-top:30px;
+    margin-bottom: 100px;
+  }
+  @media print {
+    .hidden-print,
+    .hidden-print * {
+        display: none !important;
+    }
+}
+
+  /* END OF RECEIPT CSS */

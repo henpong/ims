@@ -1,0 +1,119 @@
+
+
+.container-fluid .welcome-name span.wel{
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: bolder;
+    margin-right: 20px;
+}
+.container-fluid .welcome-name span.wel-name{
+    color: #00ffff;
+    font-size: 15px;
+    margin-right: 30px;
+}
+.dateStyle{
+    color: #00ffff;
+    /* font-family: arial black, Gadget, sans-serif; */
+    font-size: 16px;
+    font-weight: bolder;
+    /* letter-spacing: 1px; */
+    display: inline;
+    padding-top: 800px !important;
+    margin-top: 700px;
+    margin-right: 20px;
+}
+.text-red{
+    color: #ff0000 !important;
+}
+.text-orange{
+    color:#ffc300 !important;
+}
+.text-blue{
+    color: #0000ff;
+}
+.text-green{
+    color: #1e9700;
+}
+.exist-cust{
+    text-align: center;
+    font-size: 15px;
+}
+.exist-cust a {
+    text-decoration: none;
+    color:#ff0000;
+}
+.exist-cust a:hover{
+    color:#000424;
+    font-weight: bolder;
+}
+.align{
+    --bs-gutter-x: 24px !important;
+    --bs-gutter-y: 0 !important;
+    display: flex !important;
+    flex: 1 0 100% !important;
+    flex-wrap: wrap !important;
+    margin-top: calc(var(--bs-gutter-y)*-1) !important;
+    margin-right: calc(var(--bs-gutter-x)/-2) !important;
+    margin-left: calc(var(--bs-gutter-x)/-2) !important;
+}
+.align-item-center {
+    display: inline-flex !important;
+    align-items: center !important;
+}
+#transTable th{
+    font-size: 10.5px !important;
+    font-weight: bolder !important;
+    background-color: #1F283E !important;
+    color: #ffffff !important;
+    height: 35px !important;
+}
+#transTable td{
+    /* border-color: #252525 !important; */
+    border: #dddddd 0.1px solid !important;
+}
+th{
+    font-size: 11px !important;
+    font-weight: bolder !important;
+    text-transform: uppercase !important;
+    background-color: #1F283E !important;
+    color: #ffffff;
+    text-align: center !important;
+}
+.select2-hidden-accessible{
+    border: solid 1px #000000 !important;
+}
+
+.dash{
+  font-size: 30px;
+}
+.sales{
+    font-size: 25px;
+    text-align: right;
+}
+.ims-boy{
+  text-transform: uppercase;
+  color: #000424;
+  font-size: 30px;
+  font-weight: bolder;
+}
+.ims-boy span{
+  color: #ff0000;
+  font-size: 40px;
+}
+.ims-shop{
+  text-transform: uppercase;
+  color: #0000ff;
+  font-size: 25px;
+  font-weight: bolder;
+}
+.ims-date{
+  color: #000424;
+  font-size: 20px;
+}
+
+.temp_detail_custname{
+    font-size: 50px;
+    margin-bottom: 40px;
+}
+
+
