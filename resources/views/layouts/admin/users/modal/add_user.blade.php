@@ -61,8 +61,8 @@
                 <div class="row">  
                     <div class="col-sm-6">                      
                         <div class="form-group">
-                            <label for="categoryDiscount">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter User Password" >
+                            <label for="categoryDiscount">Phone Number</label>
+                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter User Phone Number" >
                             <div class="help-block with-errors"></div>
                         </div>
                     </div>                                     
@@ -74,27 +74,7 @@
                         </div>
                     </div>                                     
                 </div> 
-                <div class="row">  
-                    <div class="col-sm-6">                      
-                        <div class="form-group">
-                            <label for="categoryDiscount">Phone Number</label>
-                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter User Phone Number" >
-                            <div class="help-block with-errors"></div>
-                        </div>
-                    </div>                                     
-                    <div class="col-sm-6">                      
-                        <div class="form-group">
-                            <label for="userImage">User Image</label>
-                            <div class="input-group mb-4">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="usersImage" id="usersImage">
-                                    <label class="custom-file-label" for="usersImage">Choose file</label>
-                                </div>                             
-                            </div>
-                            <small style="color:#ff0000">(Recommended Image size: 60x60)</small>
-                        </div>
-                    </div>                                     
-                </div> 
+                
             </div>
             <div class="modal-footer">
                 <button type="reset" class="btn btn-danger mr-10"><i class="fas fa-sync"></i>Reset</button>

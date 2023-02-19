@@ -72,16 +72,14 @@ class Products extends Model
     }
 
 
-    //Create a relation to get products
-    public static function getproducts(){
+   //Create a relation to get products
+   public static function getproducts(){
        
         $userId = session('user')['userid'];
         $branchid = session('user')['branchid'];
 
         
-        $getproducts = Products::with('branch')->where('branch_id',$branchid)->where(function($query){
-            $query->where('status',1);
-        })->get();
+        $getproducts = Products::with('branch')->where('branch_id',$branchid)->where('status',1)->orWhere('status',2)->get();
         // dd($getproducts); die;
         return $getproducts;
     }

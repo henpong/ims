@@ -3,8 +3,8 @@
  
 <?php
     use Illuminate\Support\Facades\Auth;
-    use App\SpoiltGoods;
-    // use App\Customers;
+    use App\Models\SpoiltGoods;
+    // use App\Models\Customers;
 
     $getproducts = SpoiltGoods::getproducts();
     // dd($getproducts); die;

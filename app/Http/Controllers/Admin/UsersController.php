@@ -5,17 +5,22 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
+use Hash;
+
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Branches;
 use Image;
+use BulkSMS\GiantSMS;
+
 
 
 
 class UsersController extends Controller
 {
-       // Redirect to Users Table
-       public function users(){
+    
+    // Redirect to Users Table
+    public function users(){
         Session::put('page','users');
         $metaTitle = "Users | CHIBOY ENTERPRISE";
         $users = User::with(['userbranch'=>function($query){
@@ -46,15 +51,38 @@ class UsersController extends Controller
 
 
 
+     //Update Admin Users Status
+     public function updateAdminStatus(Request $request){
+        if($request->ajax()){
+
+            $data = $request->all();
+
+            // echo "<pre>"; print_r($data); die;
+
+            //Set a value for status
+            if($data['status'] == "Active"){
+                $status = 0;
+            }else{
+                $status = 1;
+            }
+
+            //Update Users Status
+            Admin::where('id',$data['user_id'])->update(['status'=>$status]);
+            return response()->json(['status'=>$status]);
+        }
+    }
+
+
      //Update Users Status
      public function updateUserStatus(Request $request){
         if($request->ajax()){
+
             $data = $request->all();
 
-            // dd($data);
+            // echo "<pre>"; print_r($data); die;
 
             //Set a value for status
-            if($data['user_status'] == "Active"){
+            if($data['status'] == "Active"){
                 $status = 0;
             }else{
                 $status = 1;
@@ -62,7 +90,7 @@ class UsersController extends Controller
 
             //Update Users Status
             User::where('id',$data['user_id'])->update(['status'=>$status]);
-            return response()->json(['user_status'=>$status, 'user_id'=>$data['user_id']]);
+            return response()->json(['status'=>$status]);
         }
     }
 
@@ -111,7 +139,6 @@ class UsersController extends Controller
                         'role' => 'required',
                         'branch_id' => 'required',
                         'fname' => 'required',
-                        'email' => 'required',
                         'username' => 'required',
                         'phone' => 'required',
                         // 'userImage' => 'required'
@@ -120,7 +147,6 @@ class UsersController extends Controller
                         'role.required' => 'Sorry, User role field is required',
                         'branch_id.required' => 'Sorry, Branch name field is required',
                         'fname.required' => 'Sorry, Full name field is required',
-                        'email.required' => 'Sorry, Email address field is required',
                         'username.required' => 'Sorry, Username field is required',
                         'phone.required' => 'Sorry, Phone number field is required',
                         // 'userImage.required' => 'Sorry, User image is required'
@@ -134,7 +160,7 @@ class UsersController extends Controller
 
                         
                         // Check If User already exists
-                        $checkUserNameExists = User::where('name',$data['fname'])->where('email',$data['email'])->count();
+                        $checkUserNameExists = User::where('name',$data['fname'])->where('username',$data['username'])->count();
                         // echo "<pre>"; print_r($checkUserNameExists); die;
                         if($checkUserNameExists > 0){
             
@@ -142,7 +168,27 @@ class UsersController extends Controller
             
                         }
 
-                        $users->password = bcrypt($data['password']);
+                        
+                        // Generate User Password
+                        $pass = \Str::random(10);
+                        $hasedPass = Hash::make($pass);
+
+                        $users->password = $hasedPass;
+
+                        $phone = preg_replace("/^0/", "+233", $data['phone']);
+                        $name = $data['fname'];
+                        $username = $data['username'];
+
+
+                                   
+                        //Send Message To User
+                        $sms = new GiantSMS('YIWCiwTe', 'oFrJWwGVNf'); // API username & secret
+                        $sms->send("Hello $name your user account with Chiboy Enterprise has been created successfully.  Here is your login details, Username: $username Password: $pass  Please login to change your password.  Thank you.", 
+                                    "$phone", 
+                                    "Chiboy Ent"
+                                ); // message, recipient, sender
+            
+
                     }
                     
 
@@ -170,17 +216,23 @@ class UsersController extends Controller
                         }
 
 
-                        
+
+                        $phone = preg_replace("/^0/", "+233", $data['phone']);
+                        $name = $data['fname'];
+                        $username = $data['username'];
+
         
-                        $users->name = $data['fname'];
-                        $users->username = $data['username'];
-                        $users->email = $data['email'];
+                        $users->name = $name;
+                        $users->username = $username;
                         $users->branchId = $data['branch_id'];
                         $users->phone = $data['phone'];
                         $users->role = $data['role'];
                         $users->status = 1;
+                        $users->log_status = 1;
         
                         $users->save();
+
+
 
 
                     session::flash('success_message',$message);
@@ -248,7 +300,6 @@ class UsersController extends Controller
                         'role' => 'required',
                         'branchid' => 'required',
                         'fname' => 'required',
-                        'email' => 'required',
                         'username' => 'required',
                         'phone' => 'required',
                         // 'userImage' => 'required'
@@ -257,7 +308,6 @@ class UsersController extends Controller
                         'role.required' => 'Sorry, User role field is required',
                         'branchid.required' => 'Sorry, Branch name field is required',
                         'fname.required' => 'Sorry, Full name field is required',
-                        'email.required' => 'Sorry, Email address field is required',
                         'username.required' => 'Sorry, Username field is required',
                         'phone.required' => 'Sorry, Phone number field is required',
                         // 'userImage.required' => 'Sorry, User image is required'
@@ -271,7 +321,7 @@ class UsersController extends Controller
 
                         
                         // Check If User already exists
-                        $checkUserNameExists = Admin::where('name',$data['fname'])->where('email',$data['email'])->count();
+                        $checkUserNameExists = Admin::where('name',$data['fname'])->where('username',$data['username'])->count();
                         // echo "<pre>"; print_r($checkUserNameExists); die;
                         if($checkUserNameExists > 0){
             
@@ -279,7 +329,28 @@ class UsersController extends Controller
             
                         }
 
-                        $admins->password = bcrypt($data['password']);
+
+                        
+                        // Generate User Password
+                        $pass = \Str::random(10);
+                        $hasedPass = Hash::make($pass);
+
+                        $admins->password = $hasedPass;
+
+                        
+                        $phone = preg_replace("/^0/", "+233", $data['phone']);
+                        $name = $data['fname'];
+                        $username = $data['username'];
+
+                     
+                        //Send Message To John K
+                        $sms = new GiantSMS('YIWCiwTe', 'oFrJWwGVNf'); // API username & secret
+                        $sms->send("Hello $name your user account with Chiboy Enterprise has been created successfully.  Here is your login details, Username: $username   Password: $pass  Please login to change your password.  Thank you.", 
+                                        "$phone", 
+                                        "Chiboy Ent"
+                                    ); // message, recipient, sender
+                    
+        
                     }
                     
 
@@ -308,18 +379,24 @@ class UsersController extends Controller
                 }
                 
 
-                $admins->name = $data['fname'];
-                $admins->username = $data['username'];
+
+                $phone = preg_replace("/^0/", "+233", $data['phone']);
+                $name = $data['fname'];
+                $username = $data['username'];
+
+                
+
+                $admins->name = $name;
+                $admins->username = $username;
                 $admins->email = $data['email'];
                 $admins->branchId = $data['branchid'];
                 $admins->phone = $data['phone'];
                 $admins->type = $data['role'];
                 $admins->status = 1;
+                $admins->log_status = 1;
 
                 $admins->save();
 
-
-            
 
                 session::flash('success_message',$message);
                 return redirect('admin/admins');
@@ -341,25 +418,26 @@ class UsersController extends Controller
     
     
     
-    //Delete User
-    public function deleteUser($id){
-        User::where('id',$id)->delete();
+        //Delete User
+        public function deleteUser($id){
+            User::where('id',$id)->delete();
+    
+            $message = "Congrats, User deleted successfully!";
+            
+            session::flash('success_message',$message);
+            return redirect('admin/users');
+        }
 
-        $message = "Congrats, User deleted successfully!";
-        
-        session::flash('success_message',$message);
-        return redirect('admin/users');
-    }
 
 
-    //Delete Admin User
-    public function deleteAdmin($id){
-        Admin::where('id',$id)->delete();
-
-        $message = "Congrats, User deleted successfully!";
-        
-        session::flash('success_message',$message);
-        return redirect('admin/admins');
-    }
+        //Delete Admin User
+        public function deleteAdmin($id){
+            Admin::where('id',$id)->delete();
+    
+            $message = "Congrats, User deleted successfully!";
+            
+            session::flash('success_message',$message);
+            return redirect('admin/admins');
+        }
 
 }

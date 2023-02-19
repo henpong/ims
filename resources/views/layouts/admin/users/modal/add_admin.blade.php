@@ -3,7 +3,7 @@
 <?php
     use App\Models\Branches;
 
-    $branches = Branches::getbranches();
+    $branches = Branches::getbranchesHO();
 
 ?>
 
@@ -61,37 +61,16 @@
                 <div class="row">  
                     <div class="col-sm-6">                      
                         <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter User Password" autocomplete="off">
+                            <label for="phone">Phone Number</label>
+                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter User Phone Number" autocomplete="off">
                             <div class="help-block with-errors"></div>
                         </div>
-                    </div>                                     
+                    </div>                                      
                     <div class="col-sm-6">                      
                         <div class="form-group">
                             <label for="username">Username</label>
                             <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" autocomplete="off">
                             <div class="help-block with-errors"></div>
-                        </div>
-                    </div>                                     
-                </div> 
-                <div class="row">  
-                    <div class="col-sm-6">                      
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter User Phone Number" autocomplete="off">
-                            <div class="help-block with-errors"></div>
-                        </div>
-                    </div>                                     
-                    <div class="col-sm-6">                      
-                        <div class="form-group">
-                            <label for="userImage">User Image</label>
-                            <div class="input-group mb-4">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="userImage" id="userImage">
-                                    <label class="custom-file-label" for="userImage">Choose file</label>
-                                </div>                             
-                            </div>
-                            <small style="color:#ff0000">(Recommended Image size: 60x60)</small>
                         </div>
                     </div>                                     
                 </div> 

@@ -5,6 +5,10 @@
 
   $admindetails = Admin::admindetails();
 
+  $branchname = $admindetails->branch->branch_name;
+
+    // echo "<pre>"; print_r($branchname); die;
+
 ?>
 
 <!DOCTYPE html>
@@ -58,7 +62,6 @@
 
 
 
-
         <!-- Header -->
         <div class="iq-top-navbar">
           <div class="iq-navbar-custom">
@@ -66,7 +69,7 @@
                   <div class="iq-navbar-logo d-flex align-items-center justify-content-between">
                       <i class="ri-menu-line wrapper-menu"></i>
                       <a href="{{url('/admin/dashboard')}}" class="header-logo">
-                          <img src="{{url('backend/img/chiboy_logo.png')}}" class="img-fluid rounded-normal" alt="logo">
+                          <img src="{{url('backEnd/img/chiboy_logo.png')}}" class="img-fluid rounded-normal" alt="logo">
                           <h5 class="logo-title ml-3">IMS CHIBOY</h5>
       
                       </a>
@@ -74,7 +77,12 @@
                     
                   <div class="iq-search-bar device-search">
                       <span style="margin-right:20px;color:#000fff;font-weight:bold">{{ date('l').' , '.' '.date('jS') .' '.date('F').', '.date('Y') }}</span>
-                        @include('layouts.adminLayout.datetime')
+                        
+                        <span style="margin-right:20px;"> @include('layouts.adminLayout.datetime') </span>
+
+                        <span style="margin-right:20px;color:#24166B">|</span>
+                            
+                        <span style="color:#ff0000;font-size:20px;font-weight:bold">{{ $branchname }}</span>
                   </div>
 
                   <div class="d-flex align-items-center">
@@ -117,41 +125,24 @@
                               <li class="nav-item nav-icon dropdown caption-content">
                                   <a href="#" class="search-toggle dropdown-toggle" id="dropdownMenuButton4"
                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-                                      @if(($admindetails->image) !== "NULL")
-                                            <img src="{{asset('backEnd/img/uploadedImages/adminImages/'.Auth::guard('admin')->user()->image)}}" alt="user" class="img-fluid rounded" onContextMenu="return false">
-                                        @elseif(($admindetails->image) == "NULL")
-                                            <img src="{{asset('backEnd/img/uploadedImages/adminImages/user.jpg')}}" alt="user" class="img-fluid rounded" onContextMenu="return false">
-                                        @endif
-                                        <!-- @if(!empty(Auth::guard('admin')->user()->image))
-                                            <img src="{{asset('backEnd/img/uploadedImages/adminImages/'.Auth::guard('admin')->user()->image)}}" alt="user" class="img-fluid rounded">
-                                        @else 
-                                            <img src="{{asset('backEnd/img/uploadedImages/adminImages/user.jpg')}}" alt="user" class="img-fluid rounded">
-                                        @endif -->
+                                      
+                                        <img src="{{asset('backend/img/uploadedImages/adminImages/user.jpg')}}" alt="user" class="img-fluid rounded" onContextMenu="return false">
                                   </a>
                                   <div class="iq-sub-dropdown dropdown-menu" aria-labelledby="dropdownMenuButton">
                                       <div class="card shadow-none m-0">
                                           <div class="card-body p-0 text-center">
                                               <div class="media-body profile-detail text-center">
-                                                    <img src="{{url('backEnd/img/logo.jpg')}}" alt="profile-bg" class="rounded-top img-fluid " style="width:200px; height: 200px;" onContextMenu="return false">
-                                                        @if(($admindetails->image) !== "NULL")
-                                                            <img src="{{asset('backEnd/img/uploadedImages/adminImages/'.Auth::guard('admin')->user()->image)}}" alt="profile-img" class="rounded profile-img img-fluid avatar-70" style="width:150px; height: 120px;" onContextMenu="return false">
-                                                        @elseif(($admindetails->image) == "NULL") 
-                                                            <img src="{{asset('backEnd/img/uploadedImages/adminImages/user.jpg')}}" alt="profile-img" class="rounded profile-img img-fluid avatar-70" style="width:150px; height: 120px;" onContextMenu="return false">
-                                                        @endif
-
-                                                    <!-- @if(!empty(Auth::guard('admin')->user()->image))
-                                                        <img src="{{asset('backEnd/img/uploadedImages/adminImages/'.Auth::guard('admin')->user()->image)}}" alt="profile-img" class="rounded profile-img img-fluid avatar-70" style="width:150px; height: 120px;">
-                                                    @else 
-                                                        <img src="{{asset('backEnd/img/uploadedImages/adminImages/user.jpg')}}" alt="profile-img" class="rounded profile-img img-fluid avatar-70" style="width:150px; height: 120px;">
-                                                    @endif -->
+                                                    <img src="{{url('backend/img/logo.jpg')}}" alt="profile-bg" class="rounded-top img-fluid " style="width:200px; height: 200px;" onContextMenu="return false">
+                                                    
+                                                        <img src="{{asset('backend/img/uploadedImages/adminImages/user.jpg')}}" alt="profile-img" class="rounded profile-img img-fluid avatar-70" style="width:150px; height: 120px;" onContextMenu="return false">
+                                                    
                                               </div>
                                               <div class="p-3">
                                                   <h5 class="mb-1"><span style="font-size: 12px">{{ Auth::guard('admin')->user()->email }}</span></h5>
                                                   <p class="mb-0">{{  date("jS F, Y ",strtotime(Auth::guard('admin')->user()->created_at )) }}</p>
                                                   <div class="d-flex align-items-center justify-content-center mt-3">
                                                       <a href="{{url('admin/update_admin_details')}}" class="btn border mr-2"><i class="fas fa-user text-blue"> </i> Profile</a>
-                                                      <a href="#" class="btn border" data-toggle="modal" data-target="#logoutModal" data-backdrop="false">
+                                                      <a href="#" class="btn border" data-toggle="modal" data-target="#logoutModal" data-backdrop="static">
                                                       <i class="fas fa-power-off text-red fa-spin"></i>Sign Out</a>
                                                   </div>
                                               </div>
@@ -159,13 +150,14 @@
                                       </div>
                                   </div>
                               </li>
-
                           </ul>
                       </div>
                   </div>
               </nav>
           </div>
       </div>
+
+
 
 
       <!-- <div class="modal fade" id="new-order" tabindex="-1" role="dialog" aria-hidden="true">

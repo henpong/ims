@@ -3,7 +3,7 @@
 
 <?php
     use Illuminate\Support\Facades\Auth;
-    use App\Products;
+    use App\Models\Products;
 
     $getlowproducts = Products::getlowproducts();
     // dd($getlowproducts); die;

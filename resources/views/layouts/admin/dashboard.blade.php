@@ -228,14 +228,13 @@ if(!empty($branchdetails)){
 
 ?>
 
-<!-- {{ Auth::guard('admin')->user()->name }} -->
 <br><br><br>
 
 <!-- Content / Dashboard -->
 <div class="col-lg-4">
       <div class="card card-transparent card-block card-stretch card-height border-none" >
           <div class="card-body p-0 mt-lg-2 mt-0">
-            <h3 class="mb-3">
+            <h4 class="mb-3">
               Hello
                 <?php 
 
@@ -245,7 +244,7 @@ if(!empty($branchdetails)){
 
                 ?>, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 @include('layouts.adminLayout.greet')
-            </h3>
+            </h4>
               <p class="mb-0 mr-4">Your dashboard gives you everything you need for your sales transaction. Enjoy.</p>
           </div>
       </div>

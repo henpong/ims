@@ -84,8 +84,8 @@
                           <div class="d-flex align-items-center list-action">
                               <a class="mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="Update Branch"
                                   href="{{ url('admin/add_edit_branches/'.$branch->id )}}"><i class="far fa-edit text-blue" style="font-size:20px;"></i></a>
-                              <a class="ml-2 confirmDelete" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"
-                                  href="javascript:void(0)" record="branch" recordid="{{ $branch->id }}"><i class="ri-delete-bin-line mr-0 text-red" style="font-size:20px;"></i></a>
+                              <!-- <a class="ml-2 confirmDelete" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"
+                                  href="javascript:void(0)" record="branch" recordid="{{ $branch->id }}"><i class="ri-delete-bin-line mr-0 text-red" style="font-size:20px;"></i></a> -->
                           </div>
 
                           

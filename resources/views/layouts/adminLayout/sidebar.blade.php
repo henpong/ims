@@ -2,7 +2,7 @@
   <div class="iq-sidebar  sidebar-default ">
             <div class="iq-sidebar-logo d-flex align-items-center justify-content-between">
               <a href="{{url('/admin/dashboard')}}" class="header-logo">
-                  <img src="{{url('backEnd/img/logo.jpg')}}" class="img-fluid rounded-normal light-logo" alt="logo" onContextMenu="return false;" style="width:140px;height:70px;margin-top:25px;">
+                  <img src="{{url('backend/img/logo.jpg')}}" class="img-fluid rounded-normal light-logo" alt="logo" onContextMenu="return false;" style="width:140px;height:70px;margin-top:25px;">
                   <h5 class="logo-title light-logo ml-3" style="font-size:14px;padding-top:35px;text-align:center">IMS CHIBOY ENTERPRISE</h5>
               </a>
               <div class="iq-menu-bt-sidebar ml-0">
@@ -107,6 +107,40 @@
                         </li>
 
 
+
+                        
+
+
+                      
+                        <!-- Gas Pounds -->
+                        @if(Session::get('page')=="gaspds" )
+                            <?php $active = "active"; ?>
+                        @else 
+                            <?php $active = ""; ?>
+                        @endif
+                        <li class="nav-item">
+                                <a href="{{url('admin/gas_pds_shops')}}" class="svg-icon nav-link {{ $active }}">                        
+                                    <svg class="svg-icon" id="p-dash6" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="14" y1="10" x2="21" y2="3"></line><line x1="3" y1="21" x2="10" y2="14"></line>
+                                    </svg>
+                                
+                                
+                                <?php
+
+                                    use App\Models\Products;
+                                    // Count Number of Gas Pds Without Price In The Products Table
+                                    $countGasPdsWithoutPrice = Products::where('product_wholesale_price','0.00')->where('product_price','0.00')->where('main_warehouse_id','0')->count();
+                                    // echo "<pre>"; print_r($countGasPdsWithoutPrice); die;
+
+                                ?>
+
+                                    <span class="ml-4">Gas Pounds</span>
+                                    
+                                    <span class="badge badge-danger ml-2" style="font-size:13px;padding:5px 5px 5px 5px;"> {{ $countGasPdsWithoutPrice }} </span>
+                            
+                            </a>
+                        </li>
+                        
 
 
                         <!-- Cash book -->
@@ -268,7 +302,6 @@
 
 
                     <!-- Suppliers, Bankers -->
-
                     @if(Session::get('page')=="suppliers" || Session::get('page')=="bankers")
                         <?php $active = "active"; ?>
                     @else 
@@ -317,7 +350,7 @@
                               <svg class="svg-icon" id="p-dash4" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                   <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path>
                               </svg>
-                              <span class="ml-4">Warehouses</span>
+                              <span class="ml-4">Warehouses/Product</span>
                               <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                   <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
                               </svg>
@@ -341,7 +374,7 @@
                                 @endif
                                 <li class="">
                                     <a href="{{url('admin/products')}}" class="nav-link  {{ $active }}">
-                                    <i class="fas fa-database"></i><span>Products</span>
+                                    <i class="fas fa-database"></i><span>Products In Shops</span>
                                     </a>
                                 </li>
                                    
@@ -401,6 +434,11 @@
                                   <li class="">
                                           <a href="#">
                                             <i class="fas fa-book text-blue"></i><span>Yearly Expenses</span>
+                                          </a>
+                                  </li>
+                                  <li class="">
+                                          <a href="#">
+                                            <i class="fas fa-book text-orange"></i><span>Daily Susu</span>
                                           </a>
                                   </li>
                                   

@@ -254,6 +254,18 @@
                                             <i class="fas fa-hand-holding-usd text-blue"></i><span>Previous Expenses</span>
                                         </a>
                                 </li>
+                                
+                                
+                                @if(Session::get('page')=="susu")
+                                    <?php $active = "active"; ?>
+                                @else 
+                                    <?php $active = ""; ?>
+                                @endif
+                                <li class="">
+                                        <a href="{{ url('/sales/daily_susu') }}" class="nav-link  {{ $active }}">
+                                            <i class="fas fa-hand-holding-usd text-green"></i><span>Daily SuSu</span>
+                                        </a>
+                                </li>
                           </ul>
                       </li>
 

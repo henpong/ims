@@ -73,8 +73,8 @@
                   </div>
                 
                   <div class="form-group">
-                    <label for="currentEmail">Email Address</label>
-                    <input class="form-control" value="{{Auth::guard('admin')->user()->email}}" readonly="">
+                    <label for="currentEmail">Username</label>
+                    <input class="form-control" value="{{Auth::guard('admin')->user()->username}}" readonly="">
                   </div>
 
                   <div class="form-group">

@@ -33,4 +33,10 @@ class Branches extends Model
         $getbranches = Branches::where('branch_name','!=','HEAD OFFICE')->get();
         return $getbranches;
     }
+
+
+    public static function getbranchesHO(){
+        $getbranchesHO = Branches::where('branch_name','HEAD OFFICE')->get();
+        return $getbranchesHO;
+    }
 }

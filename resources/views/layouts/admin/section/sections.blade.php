@@ -81,8 +81,8 @@
                           <div class="d-flex align-items-center list-action">
                               <a class="mr-3" data-toggle="tooltip" data-placement="top" data-original-title="Edit Section"
                                   href="{{ url('admin/add_edit_sections/'.$section->id )}}"><i class="far fa-edit text-blue" style="font-size:18px;"></i></a>
-                              <a class="ml-2 confirmDelete" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Section"
-                                  href="javascript:void(0)" record="section" recordid="{{ $section->id }}"><i class="fas fa-trash-alt mr-0 text-red" style="font-size:18px;"></i></a>
+                              <!-- <a class="ml-2 confirmDelete" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Section"
+                                  href="javascript:void(0)" record="section" recordid="{{ $section->id }}"><i class="fas fa-trash-alt mr-0 text-red" style="font-size:18px;"></i></a> -->
                           </div>
 
                           

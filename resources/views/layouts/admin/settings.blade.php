@@ -50,8 +50,8 @@
         <form role="form" method="POST" action="{{('/admin/update_password')}}" name="updatePasswordForm" id="updatePassword">@csrf
             <div class="card-body">
               <div class="form-group">
-                <label for="currentEmail">Email address</label>
-                <input class="form-control" value="{{$adminDetails->email}}" readonly="">
+                <label for="currentEmail">Username</label>
+                <input class="form-control" value="{{$adminDetails->username}}" readonly="">
               </div>
               <div class="form-group">
                 <label for="currentPass">Current Password</label>

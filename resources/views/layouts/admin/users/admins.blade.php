@@ -50,7 +50,7 @@
                             </th>
                             <th>No.</th>
                             <th>Full Name</th>
-                            <th>Email Address</th>
+                            <!-- <th>Email Address</th> -->
                             <th>Password</th>
                             <th>Username</th>
                             <th>Phone Number</th>
@@ -73,7 +73,7 @@
                           
                           <td>{{ $loop->iteration }}</td>
                           <td>{{ $user->name }}</td>
-                          <td>{{ $user->email }}</td>
+                          <!-- <td>{{ $user->email }}</td> -->
                           <td>{{ '******' }}</td>
                           <td>{{ $user->username }}</td>
                           <td>{{ $user->phone }}</td>
@@ -117,7 +117,7 @@
                             </th>
                             <th>No.</th>
                             <th>Full Name</th>
-                            <th>Email Address</th>
+                            <!-- <th>Email Address</th> -->
                             <th>Password</th>
                             <th>Username</th>
                             <th>Phone Number</th>

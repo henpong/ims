@@ -17,19 +17,26 @@ use Image;
 
 class AdminController extends Controller
 {
-     //Direct to Login Page
-     public function login(Request $request){
+
+   
+    //Direct to Login Page
+    public function login(Request $request){
         $metaTitle = "Admin Login | CHIBOY ENTERPRISE";
         //echo $pass = Hash::make('password'); die;
         if($request->isMethod('post')){
             $data = $request->all();
 
-            //Check if Email and Password are Correct Then Direct User to The Dashboard
-            if(Auth::guard('admin')->attempt(['email'=>$data['email'],'password'=>$data['password']])){
-                Session::flash('success_message','Successsfuly login');
-                return redirect('admin/dashboard');
+            //Check if Username and Password are Correct Then Direct User to The Dashboard
+            if(Auth::guard('admin')->attempt(['username'=>$data['username'],'password'=>$data['password']])){
+                if(Auth::guard('admin')->user()->log_status == 1){
+                    Session::flash('first_log','Successsfuly login');
+                    return redirect('admin/dashboard');
+                }else{
+                    Session::flash('success_message','Successsfuly login');
+                    return redirect('admin/dashboard');
+                }
             }else{
-                Session::flash('error_message','Incorrect email address or password entered');
+                Session::flash('error_message','Incorrect username or password entered');
                 return redirect()->back();
             }
         }
@@ -49,9 +56,11 @@ class AdminController extends Controller
     public function settings(){
         Session::put('page','settings');
         $metaTitle = "Update Password Settings | CHIBOY ENTERPRISE";
-        $adminDetails = Admin::where('email',Auth::guard('admin')->user()->email)->first();
+        $adminDetails = Admin::where('username',Auth::guard('admin')->user()->username)->first();
         return view('layouts.admin.settings')->with(compact('adminDetails','metaTitle'));
     }
+
+
 
     //Check Admin Password Is Correct or Not
     public function chkCurrentPass(Request $request){
@@ -69,6 +78,30 @@ class AdminController extends Controller
     }
 
 
+    
+
+    //Post Admin First Time Password
+    public function updateFirstTimePass(Request $request){
+        if($request->isMethod('post')){
+            $data = $request->all();
+
+            // echo "<pre>"; print_r($data); die;
+
+            //Check if New and Confirm Password Matches
+            if($data['newFirstTimePass'] == $data['confirmFirstTimePass']){
+                //Update Admin Old Password to New Password
+                Admin::where('id',Auth::guard('admin')->user()->id)->update(['password'=>bcrypt($data['newFirstTimePass']), 'log_status'=>2]);
+                Session::flash('upd_pass','OK Friend, Password Updated Successfully.');
+            }else{
+                Session::flash('error_message','Sorry, New and Confirm Password mismatch.');
+            }
+            return redirect()->back();
+        }
+    }
+
+
+
+
     //Post Admin Password
     public function updatePass(Request $request){
         if($request->isMethod('post')){
@@ -81,7 +114,9 @@ class AdminController extends Controller
                 if($data['newPass'] == $data['confirmPass']){
                     //Update Admin Old Password to New Password
                     Admin::where('id',Auth::guard('admin')->user()->id)->update(['password'=>bcrypt($data['newPass'])]);
-                    Session::flash('success_message','OK Friend, Password Updated Successfully.');
+                    Session::flash('upd_pass','OK Friend, Password Updated Successfully.');
+                    // return redirect('admin/settings')->with('upd_pass');
+                    // return redirect('/admin/logOut');
                 }else{
                     Session::flash('error_message','Sorry, New and Confirm Password mismatch.');
                 }
@@ -91,6 +126,7 @@ class AdminController extends Controller
             return redirect()->back();
         }
     }
+
 
 
     //Update Admin Details
@@ -125,7 +161,7 @@ class AdminController extends Controller
                     $extension = $image_temp->getClientOriginalExtension();
                     //Generate New Image Name
                     $imageName = rand(111,99999).'.'.$extension;
-                    $imagePath = 'backend/img/uploadedImages/adminImages/'.$imageName;
+                    $imagePath = 'backEnd/img/uploadedImages/adminImages/'.$imageName;
                     //Now We Upload The New Image
                     Image::make($image_temp)->resize(150,150)->save($imagePath);
                 }else if(!empty($data['currentAdminImage'])){
@@ -137,7 +173,7 @@ class AdminController extends Controller
 
 
             //Update Admin Table With The Details
-            Admin::where('email',Auth::guard('admin')->user()->email)
+            Admin::where('username',Auth::guard('admin')->user()->username)
             ->update(['name'=>$data['adminName'],'phone'=>$data['adminPhone'],'image'=>$imageName]);
             Session::flash('success_message','Admin Details Updated Successfully.');
             return redirect()->back();
@@ -153,4 +189,6 @@ class AdminController extends Controller
         // Session::save();
         return redirect('/admin');
     }
+
+
 }

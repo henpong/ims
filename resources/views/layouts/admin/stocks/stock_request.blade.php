@@ -73,7 +73,7 @@
                                   <td>{{$stock->products->product_name}}</td>
                                   <td>{{$stock->qty_requestedCTNS}}</td>
                                   <td>{{$stock->additional_qty_requested}}</td>
-                                  <td>{{$stock->qty_requestedPCS}}</td>
+                                  <td>{{number_format(($stock->qty_requestedPCS + $stock->additional_qty_requested),1)}}</td>
                                   <td>{{ number_format($stock->products->product_price,2) }}</td>
                                   <td>{{date("jS F, Y  H:i:s", strtotime($stock->date_requested))}}</td>
                                   <td>{{$stock->requested_by}}</td>

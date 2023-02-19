@@ -86,8 +86,8 @@
                           <div class="d-flex align-items-center list-action">
                               <a class="mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="Update Category"
                                   href="{{ url('admin/add_edit_category/'.$category->id )}}"><i class="far fa-edit text-blue" style="font-size:20px;"></i></a>
-                              <a class="confirmDelete ml-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Category"
-                                  href="javascript:void(0)" record="category" recordid="{{ $category->id }}"><i class="fas fa-trash-alt mr-0 text-red" style="font-size:20px;"></i></a>
+                              <!-- <a class="confirmDelete ml-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Category"
+                                  href="javascript:void(0)" record="category" recordid="{{ $category->id }}"><i class="fas fa-trash-alt mr-0 text-red" style="font-size:20px;"></i></a> -->
                           </div>
 
                           

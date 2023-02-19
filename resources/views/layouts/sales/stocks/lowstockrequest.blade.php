@@ -2,7 +2,7 @@
 @section('content')
 
 <?php
-   // use App\Products;
+   // use App\Models\Products;
 
     // $getlowproducts = Products::getlowproducts();
     // dd($getlowproducts); die;

@@ -50,7 +50,7 @@
                             </th>
                             <th>No.</th>
                             <th>Full Name</th>
-                            <th>Email Address</th>
+                            <!-- <th>Email Address</th> -->
                             <th>Password</th>
                             <th>Username</th>
                             <th>Phone Number</th>
@@ -73,15 +73,15 @@
                           
                           <td>{{ $loop->iteration }}</td>
                           <td>{{ $user->name }}</td>
-                          <td>{{ $user->email }}</td>
+                          <!-- <td>{{ $user->email }}</td> -->
                           <td>{{ '******' }}</td>
                           <td>{{ $user->username }}</td>
                           <td>{{ $user->phone }}</td>
                           <td>
                               @if($user->image !== "NULL")
-                                  <img src="{{asset('backEnd/img/uploadedImages/usersImages/'.$user->image)}}" alt="user" style="width:60px;height:60px">
+                                  <img src="{{asset('backend/img/uploadedImages/usersImages/'.$user->image)}}" alt="user" style="width:60px;height:60px">
                               @else 
-                                  <img src="{{asset('backEnd/img/uploadedImages/usersImages/user.jpg')}}" alt="user" style="width:60px;height:60px">
+                                  <img src="{{asset('backend/img/uploadedImages/usersImages/user.jpg')}}" alt="user" style="width:60px;height:60px">
                               @endif
                               <!-- <img src="{{ asset('backEnd/img/uploadedImages/usersImages/'.$user->image) }}" alt="" style="width:60px;height:60px"> -->
                           </td>
@@ -117,7 +117,7 @@
                             </th>
                             <th>No.</th>
                             <th>Full Name</th>
-                            <th>Email Address</th>
+                            <!-- <th>Email Address</th> -->
                             <th>Password</th>
                             <th>Username</th>
                             <th>Phone Number</th>

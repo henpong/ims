@@ -9,7 +9,7 @@
       <title>{{ $metaTitle ?? config('app.name', 'Nakwasoft') }}</title>
       
       <!-- Favicon -->
-      <link rel="shortcut icon" type="image/x-icon" sizes="32x32" href="{{url('backend/img/chiboy_logo.png')}}">
+      <link rel="shortcut icon" type="image/x-icon" sizes="32x32" href="{{url('backEnd/img/logo.jpg')}}">
       <link rel="stylesheet" href="{{url('backend/css/backend-plugin.min.css')}}">
       <link rel="stylesheet" href="{{url('backend/css/backende209.css?v=1.0.0')}}">
       <link rel="stylesheet" href="{{url('backend/login_css/custom.css')}}">
@@ -20,12 +20,6 @@
       <link rel="stylesheet" href="{{url('backend/css/toastr.min.css')}}">  
 </head>
   <body class=" ">
-    <!-- loader Start -->
-    <!-- <div id="loading">
-          <div id="loading-center">
-          </div>
-    </div> -->
-    <!-- loader END -->
     
       <div class="wrapper">
       <section class="login-content">
@@ -38,13 +32,13 @@
                            <div class="col-lg-7 align-self-center">
                               <div class="p-3">
                                  <h2 class="mb-2">Log In</h2>
-                                 <p>Login to stay connected.</p>
+                                 <p style="color:#ff0000">Login to stay connected.</p>
                                  <form action="{{ url('/sales/login/{id}') }}" method="post">@csrf
                                     <div class="row">
                                        <div class="col-lg-12">
                                           <div class="floating-label form-group">
-                                             <input class="floating-input form-control" type="email" name="email" id="email" autocomplete="off">
-                                             <label>Email Address</label>
+                                             <input class="floating-input form-control" type="text" name="username" id="username" autocomplete="off">
+                                             <label>Username</label>
                                           </div>
                                        </div>
                                        <div class="col-lg-12">
@@ -56,13 +50,13 @@
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-block" style="">Log In</button><br>
                                     <div class="col-lg-6">
-                                        <a href="#" class="text-primary float-right">Forgot Password?</a>
+                                       <a href="#" class="text-primary ">Forgot Password?</a>
                                     </div>
                                  </form>
                               </div>
                            </div>
                            <div class="col-lg-5 content-right">
-                              <img src="{{asset('backEnd/img/logo.jpg')}}" class="img-fluid image-right chi-logo" alt="">
+                              <img src="{{asset('backend/img/logo.jpg')}}" class="img-fluid image-right chi-logo" alt="" onContextMenu="return false">
                            </div>
                         </div>
                      </div>
@@ -74,21 +68,21 @@
       </div>
     
     <!-- Backend Bundle JavaScript -->
-    <script src="{{asset('backend/js/backend-bundle.min.js')}}"></script>
+    <script src="{{asset('backEnd/js/backend-bundle.min.js')}}"></script>
     
     <!-- Table Treeview JavaScript -->
-    <script src="{{asset('backend/js/table-treeview.js')}}"></script>
+    <script src="{{asset('backEnd/js/table-treeview.js')}}"></script>
     
     <!-- Chart Custom JavaScript -->
-    <script src="{{asset('backend/js/customizer.js')}}"></script>
+    <script src="{{asset('backEnd/js/customizer.js')}}"></script>
     
     <!-- Chart Custom JavaScript -->
-    <script async src="{{asset('backend/js/chart-custom.js')}}"></script>
+    <script src="{{asset('backEnd/js/chart-custom.js')}}"></script>
     
     <!-- app JavaScript -->
-    <script src="{{asset('backend/js/app.js')}}"></script>
+    <script src="{{asset('backEnd/js/app.js')}}"></script>
     <!-- Toastr Notification -->
-    <script src="{{asset('backend/js/toastr.min.js')}}"></script>
+    <script src="{{asset('backEnd/js/toastr.min.js')}}"></script>
   </body>
 
 
@@ -97,16 +91,12 @@
   @if(Session::has('success_message'))
       <script>
          toastr.success("{!!Session::get('success_message') !!}");
-         var audio = new Audio('audio.mp3');
-            audio.play();
       </script>
   @endif
   <!-- Display Error Message -->
   @if(Session::has('error_message'))
       <script>
          toastr.error("{!!Session::get('error_message') !!}");
-         var audio = new Audio('audio.mp3');
-            audio.play();
       </script>
   @endif
 </html>

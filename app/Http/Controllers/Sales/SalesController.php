@@ -561,6 +561,52 @@ class SalesController extends Controller
                 TempTrans::where('branch_id',$branchid)->where('product_id',$productid)->where('user_id',$userId)->delete();
             }
 
+
+
+
+
+
+
+            
+            
+
+            // $transSMS = Receipt::with(['branch'=>function($query){
+            //     $query->select('id','branch_name');
+            // },'customers'=>function($query){
+            //     $query->select('id','fullname','customer_contact');
+            // }])->where('branch_id',$branchid)->where('customer_id',$insertid)->where('sms_status',1)->first();
+            // $transSMS = json_decode(json_encode($transSMS));
+
+            // echo "<pre>"; print_r($transSMS); die;
+
+            // $customerName = $transSMS->customer_name;
+            // $branchName = $transSMS->branch->branch_name;
+            // $username = $transSMS->user_name;
+            // $customerFon = $transSMS->customer_fon;
+            
+            // echo "<pre>"; print_r($customerFon); die;
+            
+
+            //Send Message To John K
+            // $sms = new GiantSMS('YIWCiwTe', 'oFrJWwGVNf'); // API username & secret
+            // $sms->send("Transaction Completed on $date   $customerName has bought items worth GHS$subTotal.   Cash Paid: GHS$cashPaid  Discount: GHS$totalDiscount   Amount Due: GHS$amtDue   Change Amount: GHS$changeAmt  Branch: $branchName  Sales Attendant: $username", 
+            //                 "+233244518159", 
+            //                 "Chiboy Ent"
+            //             ); // message, recipient, sender
+            
+
+            
+            if($customerFon != ""){
+                //Send Message To Customer
+                $sms = new GiantSMS('YIWCiwTe', 'oFrJWwGVNf'); // API username & secret
+                $sms->send("Hello $customerName, thank you for doing business with us. Please keep your receipt save for future returns. You were served by: $username  John K Services, We serve you better! ", 
+                                "$customerFon", 
+                                "Chiboy Ent"
+                            ); // message, recipient, sender
+            }
+            
+
+
             
             return redirect('sales/transreceipt/'.$insertid);
         }

@@ -25,8 +25,8 @@ $(document).ready(function(){
 
 
 
-        //UPDATE SECTION STATUS USING AJAX
-        $(".updateSectionStatus").click(function(){
+    //UPDATE SECTION STATUS USING AJAX
+    $(".updateSectionStatus").click(function(){
         var section_status = $(this).text();
         var section_id = $(this).attr("section_id");
         // alert(section_status);
@@ -81,24 +81,24 @@ $(document).ready(function(){
 
 
 
-    //UPDATE USERS STATUS USING AJAX
-    $(".updateUserStatus").click(function(){
-        var user_status = $(this).text();
+    //UPDATE ADMIN USERS STATUS USING AJAX
+    $(".updateAdminUserStatus").click(function(){
+        var status = $(this).text();
         var user_id = $(this).attr("user_id");
         // alert(status);
         // alert(user_id);
-        // console.log(user_status);
+        // console.log(status);
         $.ajax({
             type: "post",
-            url: "/admin/update_users_status",
-            data:{user_status:user_status,user_id:user_id},
+            url: "/admin/update_admin_status",
+            data:{status:status,user_id:user_id},
             success:function(resp){
                 // alert(resp['status']);
                 // alert(resp['user_id']);
                 //Get Response and Change Status in HTML
-                if(resp['user_status']==0){
+                if(resp['status']==0){
                     $("#user-"+user_id).html("<a class='updateUserStatus' href='javascript:void(0)' style='color:#ff0000'>Inactive</a>");
-                }else if(resp['user_status']==1){
+                }else if(resp['status']==1){
                     $("#user-"+user_id).html("<a class='updateUserStatus' href='javascript:void(0)' style='color:#007bff'>Active</a>");
                 }
             },error:function(){
@@ -110,6 +110,35 @@ $(document).ready(function(){
 
 
 
+    //UPDATE USERS STATUS USING AJAX
+    $(".updateUserStatus").click(function(){
+        var status = $(this).text();
+        var user_id = $(this).attr("user_id");
+        // alert(status);
+        // alert(user_id);
+        // console.log(status);
+        $.ajax({
+            type: "post",
+            url: "/admin/update_users_status",
+            data:{status:status,user_id:user_id},
+            success:function(resp){
+                // alert(resp['status']);
+                // alert(resp['user_id']);
+                //Get Response and Change Status in HTML
+                if(resp['status']==0){
+                    $("#user-"+user_id).html("<a class='updateUserStatus' href='javascript:void(0)' style='color:#ff0000'>Inactive</a>");
+                }else if(resp['status']==1){
+                    $("#user-"+user_id).html("<a class='updateUserStatus' href='javascript:void(0)' style='color:#007bff'>Active</a>");
+                }
+            },error:function(){
+                alert("Error");
+            }
+        });
+    });
+
+
+
+ 
     //UPDATE CATEGORY STATUS USING AJAX
     $(".updateCategoryStatus").click(function(){
         var category_status = $(this).text();
@@ -155,8 +184,8 @@ $(document).ready(function(){
 
 
 
-       //UPDATE SUPPLIER STATUS USING AJAX
-       $(".updateSupplierStatus").click(function(){
+    //UPDATE SUPPLIER STATUS USING AJAX
+    $(".updateSupplierStatus").click(function(){
         var supplier_status = $(this).text();
         var supplier_id = $(this).attr("supplier_id");
         // alert(supplier_status);
@@ -331,6 +360,341 @@ $(document).ready(function(){
 
   
       });
+
+
+
+
+
+      
+    /*********************************************************************
+        VALIDATE FIRST TIME PASSWORD FORM
+    **********************************************************************/
+        $("#updateFirstTimePassword").validate({
+            rules: {
+                newFirstTimePass: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 15,
+                },
+                confirmFirstTimePass: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 15,
+                    equalTo: "#newFirstTimePass",
+                },
+            },
+            messages: {
+                newFirstTimePass: {
+                    required: "<span style='color: #ff0000'>New password field is required.</span>",
+                    minlength: "<span style='color: #ff0000'>Please enter at least 6 characters.</span>",
+                    maxlength: "<span style='color: #ff0000'>Please enter no more than 15 characters.</span>",
+                },
+                confirmFirstTimePass: {
+                    required: "<span style='color: #ff0000'>Confirm password field is required.</span>",
+                    minlength: "<span style='color: #ff0000'>Please enter at least 6 characters.</span>",
+                    maxlength: "<span style='color: #ff0000'>Please enter no more than 15 characters.</span>",
+                    equalTo: "<span style='color: #ff0000'>Confirm password is not equal to New password.</span>",
+                },
+            },
+            
+        });
+
+
+
+           
+    
+
+
+    /*********************************************************************
+        VALIDATE NEW CUSTOMERS FORM
+    **********************************************************************/
+        $("#customerTransForm").validate({
+            rules: {
+                fname: {
+                    required: true,
+                }
+            },
+            messages: {
+                fname: {
+                    required: "<span style='color: #ff0000'>Please select customer type.</span>",
+                }
+            },
+
+            
+        });
+    
+
+
+
+        
+
+    /*********************************************************************
+        VALIDATE NEW CUSTOMERS DETAILED FORM
+    **********************************************************************/
+        $("#detailedCustomerTransForm").validate({
+            rules: {
+                fname: {
+                    required: true,
+                },
+                phone: {
+                    required: true,
+                },
+                address: {
+                    required: true,
+                },
+                company: {
+                    required: true,
+                }
+            },
+            messages: {
+                fname: {
+                    required: "<span style='color: #ff0000'>Please enter customer's full name</span>",
+                },
+                phone: {
+                    required: "<span style='color: #ff0000'>Please enter customer's phone number.</span>",
+                },
+                address: {
+                    required: "<span style='color: #ff0000'>Please enter customer's address.</span>",
+                },
+                company: {
+                    required: "<span style='color: #ff0000'>Please enter customer's company name.</span>",
+                }
+            },
+
+            
+            
+        });
+
+
+
+
+    /*********************************************************************
+        VALIDATE NEW CUSTOMERS ACCOUNT FORM
+    **********************************************************************/
+        $("#autoSumForm").validate({
+            rules: {
+                paid: {
+                    required: true,
+                },
+                payMethod: {
+                    required: true,
+                },
+                payStatus: {
+                    required: true,
+                }
+            },
+            messages: {
+                paid: {
+                    required: "<span style='color: #ff0000'>Please enter amount paid.</span>",
+                },
+                payMethod: {
+                    required: "<span style='color: #ff0000'>Please select payment method</span>",
+                },
+                payStatus: {
+                    required: "<span style='color: #ff0000'>Please select payment status.</span>",
+                }
+            },
+            
+        });
+
+
+
+
+
+    /*********************************************************************
+        VALIDATE RETURNED GOODS FORM
+    **********************************************************************/
+        $("#returnedGoodsForm").validate({
+            rules: {
+                productid: {
+                    required: true,
+                },
+                qtyreturnedpcs: {
+                    required: true,
+                },
+                prodcondition: {
+                    required: true,
+                },
+                custid: {
+                    required: true,
+                },
+                custname: {
+                    required: true,
+                },
+                description: {
+                    required: true,
+                }
+            },
+            messages: {
+                productid: {
+                    required: "<span style='color: #ff0000'>Please select product name.</span>",
+                },
+                qtyreturnedpcs: {
+                    required: "<span style='color: #ff0000'>Please enter qty returned.</span>",
+                },
+                prodcondition: {
+                    required: "<span style='color: #ff0000'>Please select product condition.</span>",
+                },
+                custid: {
+                    required: "<span style='color: #ff0000'>Please select receipt number.</span>",
+                },
+                custname: {
+                    required: "<span style='color: #ff0000'>Please select customer name.</span>",
+                },
+                description: {
+                    required: "<span style='color: #ff0000'>Please select product description.</span>",
+                }
+            },
+            
+        });
+
+
+
+
+    /*********************************************************************
+        VALIDATE SPOILT GOODS FORM
+    **********************************************************************/
+        $("#spoiltGoodsForm").validate({
+            rules: {
+                productid: {
+                    required: true,
+                },
+                qtyspoiltpcs: {
+                    required: true,
+                },
+                prodcondition: {
+                    required: true,
+                },
+                description: {
+                    required: true,
+                }
+            },
+            messages: {
+                productid: {
+                    required: "<span style='color: #ff0000'>Please select product name.</span>",
+                },
+                qtyspoiltpcs: {
+                    required: "<span style='color: #ff0000'>Please enter qty spoilt.</span>",
+                },
+                prodcondition: {
+                    required: "<span style='color: #ff0000'>Please select product condition.</span>",
+                },
+                description: {
+                    required: "<span style='color: #ff0000'>Please select product description.</span>",
+                }
+            },
+            
+        });
+
+
+
+
+
+
+
+        
+    /*********************************************************************
+        VALIDATE LOW STOCK REQUEST FORM
+    **********************************************************************/
+        $("#sendRequest").validate({
+            rules: {
+                qtyrequestctns: {
+                    required: true,
+                },
+                qtyrequestpcs: {
+                    required: true,
+                }
+            },
+            messages: {
+                qtyrequestctns: {
+                    required: "<span style='color: #ff0000'>Please enter qty request (ctns).</span>",
+                },
+                qtyrequestpcs: {
+                    required: "<span style='color: #ff0000'>Please enter qty request (pcs).</span>",
+                }
+            },
+            
+        });
+
+    
+                              
+  
+
+
+    /*********************************************************************
+        VALIDATE FIRST TIME PASSWORD FORM
+    **********************************************************************/
+        $("#updateFirstTimePassword").validate({
+            rules: {
+                newFirstTimePass: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 15,
+                },
+                confirmFirstTimePass: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 15,
+                    equalTo: "#newFirstTimePass",
+                },
+            },
+            messages: {
+                newFirstTimePass: {
+                    required: "<span style='color: #ff0000'>New password field is required.</span>",
+                    minlength: "<span style='color: #ff0000'>Please enter at least 6 characters.</span>",
+                    maxlength: "<span style='color: #ff0000'>Please enter no more than 15 characters.</span>",
+                },
+                confirmFirstTimePass: {
+                    required: "<span style='color: #ff0000'>Confirm password field is required.</span>",
+                    minlength: "<span style='color: #ff0000'>Please enter at least 6 characters.</span>",
+                    maxlength: "<span style='color: #ff0000'>Please enter no more than 15 characters.</span>",
+                    equalTo: "<span style='color: #ff0000'>Confirm password is not equal to New password.</span>",
+                },
+            },
+            
+        });
+
+
+
+
+  
+
+        
+
+    /*****************************************************************
+            SUBMIT TRANSACTION ACCOUNT FORM USING AJAX
+    ******************************************************************/
+        function accountSubmit(){
+            
+            // alert('Submitted');
+
+            $.ajax({
+                type: "POST",
+                url: "/sales/complete_transaction/.$insertid",
+                data: $('#autoSumForm').serialize(),
+                success:function(response){
+                    // alert(response);
+                    // console.log(response);
+                    if (response.status == 0) {
+
+                        // alert("OKAY");
+                        // toastr.error(response.msg);
+                        $("#autoSumForm")[0].reset();
+
+                    }else if(response.status == 1){
+
+                        // $("#maritalStatusTable").DataTable().ajax.reload(null, false);
+                        // toastr.success(response.msg);
+                        $("#autoSumForm")[0].reset();
+
+                    }
+                }
+            });
+            return false;
+
+        }
+
+
 
 
 

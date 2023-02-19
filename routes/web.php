@@ -1,6 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Sales\IndexController;
+use App\Http\Controllers\Sales\UsersController;
+use App\Http\Controllers\Sales\CustomersController;
+use App\Http\Controllers\Sales\PaymentsController;
+use App\Http\Controllers\Sales\ReceiptController;
+use App\Http\Controllers\Sales\StocksController;
+use App\Http\Controllers\Sales\SalesController;
+use App\Http\Controllers\Sales\ReportsController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\BigCustomersController;
@@ -8,32 +16,19 @@ use App\Http\Controllers\Admin\BranchesController;
 use App\Http\Controllers\Admin\BrandsController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\CreditorsController;
-use App\Http\Controllers\Admin\CustomersController;
+// use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\MainWarehouseController;
 use App\Http\Controllers\Admin\MainWarehouseLogController;
-use App\Http\Controllers\Admin\PaymentsController;
 use App\Http\Controllers\Admin\ProductsController;
-use App\Http\Controllers\Admin\ReceiptController;
+// use App\Http\Controllers\Admin\ReportsController;
 use App\Http\Controllers\Admin\SectionsController;
 use App\Http\Controllers\Admin\StockRequestController;
 use App\Http\Controllers\Admin\SuppliersController;
 use App\Http\Controllers\Admin\TemporalCreditController;
 use App\Http\Controllers\Admin\UnitsController;
 // use App\Http\Controllers\Admin\UsersController;
-use App\Http\Controllers\Admin\ReportsController;
 use App\Http\Controllers\Admin\WarehouseController;
-use App\Http\Controllers\Sales\IndexController;
-use App\Http\Controllers\Sales\UsersController;
-use App\Http\Controllers\Sales\CreditController;
-// use App\Http\Controllers\Sales\CustomersController;
-// use App\Http\Controllers\Sales\PaymentsController;
-// use App\Http\Controllers\Sales\ReceiptController;
-// use App\Http\Controllers\Sales\ReportsController;
-use App\Http\Controllers\Sales\SalesController;
-use App\Http\Controllers\Sales\StocksController;
-// use App\Http\Controllers\Sales\TemporalCreditController;
-
-
+ 
 
 
 
@@ -52,6 +47,7 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         //Check & Post Admin Current Password
         Route::post('check_current_pswd',[AdminController::class,'chkCurrentPass']);
         Route::post('update_password',[AdminController::class,'updatePass']);
+        Route::post('update_first_time_password',[AdminController::class,'updateFirstTimePass']);
 
 
         //Update Admin Details
@@ -68,7 +64,7 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::get('delete_branch/{id}',[BranchesController::class,'deleteBranch']);
 
 
-
+ 
         //Fetch Data From Users Table
         Route::get('users',[App\Http\Controllers\Admin\UsersController::class,'users']);
         //Update Users Status
@@ -186,20 +182,18 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::get('delete_product/{id}',[ProductsController::class,'deleteProduct']);
 
 
-        //Main Warehouse
+        //Main Warehouse Product
         Route::get('mainwarehouse',[MainWarehouseController::class,'mainwarehouse']);
         //Update Main Warehouse Status
         Route::post('update_mainwarehouse_status',[MainWarehouseController::class,'updateMainWarehouseStatus']);
         //Insert & Update Main Warehouse
         Route::match(['get','post'],'add_edit_mainwarehouse/{id?}',[MainWarehouseController::class,'addEditMainWarehouse']);
         //Add New Order
-        Route::match(['get','post'],'add_new_order/{id?}',[MainWarehouseController::class,'addNewOrder']);
+        Route::match(['get','post'],'add_new_order/{id}',[MainWarehouseController::class,'addNewOrder']);
         //View Products Added Transactions In Main Warehouse
         Route::get('view_product_transaction_mainwarehouse/{id}',[MainWarehouseLogController::class,'viewTransactions']);
         //View Products Taken In Main Warehouse
         Route::get('view_product_taken_transaction/{id}',[MainWarehouseLogController::class,'productsTaken']);
-        //View Products Sold In Main Warehouse
-        Route::get('view_product_sold_transaction/{id}',[MainWarehouseLogController::class,'productsSold']);
         //Delete Product In Main Warehouse
         Route::get('delete_mainwarehouse/{id}',[MainWarehouseController::class,'deleteMainWareProduct']);
         //Delete Record In Main WarehouseLog
@@ -230,9 +224,8 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         
 
         //Customers & Creditors
-
         //Get All Customers
-        Route::get('customers',[CustomersController::class,'customers']);
+        Route::get('customers',[App\Http\Controllers\Admin\CustomersController::class,'customers']);
         //Get All Credit Requests
         Route::get('credit_requests',[CreditorsController::class,'creditrequest']);
         // Update Credit Requests
@@ -245,58 +238,30 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
         Route::match(['get','post'],'credit_paid_details',[PaymentsController::class,'creditPaidDetails']);
 
 
-
-
-        // Get All Big Customer
+        // Get All Distributors
         Route::get('big_customers',[BigCustomersController::class,'bigcustomers']);
-        // Add New Big Customer
-        Route::match(['get','post'],'addbigcustomer',[BigCustomersController::class,'addbigcustomer']);
-        // Creditor's Account Book
-        Route::match(['get','post'],'credit_account_summary/{id}',[BigCustomersController::class,'creditorsbook']);
-        // Add Credit Sales Transaction
-        Route::match(['get','post'],'credit_transaction/{id}',[BigCustomersController::class,'addCreditTrans']);
-        // Update Temporal Discount on Transaction
-        Route::match(['get','post'],'update_credit_discount_transaction/{id}',[BigCustomersController::class,'updateCreditDiscount']);
-        // Update Temporal Qty on Transaction
-        Route::match(['get','post'],'update_credit_qty_transaction/{id}',[BigCustomersController::class,'updateCreditQty']);
-        // Complete Sales Transaction
-        Route::match(['get','post'],'complete_credit_transaction/{id}',[BigCustomersController::class,'completeCreditTrans']);
-        // Delete Credit Transaction
-        Route::match(['get','post'], 'delete_credit_transaction/{id}', [BigCustomersController::class,'deleteCreditTrans']);
-        // Cancel Transaction
-        Route::match(['get','post'],'cancel_credit_transaction/{id}',[BigCustomersController::class,'cancelCreditTrans']);
-        // Transaction Receipt
-        Route::match(['get','post'],'credit_transreceipt/{id}',[ReceiptController::class,'transCreditReceipt']);
-        // Credit Paid
-        Route::match(['get','post'],'credit_paid/{id}',[PaymentsController::class,'creditPaid']);
-        // Credit Paid Details
-        Route::match(['get','post'],'credit_paid_details',[PaymentsController::class,'creditPaidDetails']);
-
-        
-
-
 
         // Get Detailed Of Expenses
-        Route::get('daily_expenses',[CustomersController::class,'expenses']);
+        Route::get('daily_expenses',[App\Http\Controllers\Admin\CustomersController::class,'expenses']);
 
 
         // Cash Book
-        Route::get('cashbook',[PaymentsController::class,'cashbook']);
+        Route::get('cashbook',[App\Http\Controllers\Admin\PaymentsController::class,'cashbook']);
 
 
 
         
         // Reports
         // Sales
-        Route::get('daily_sales',[ReportsController::class,'dailysales']);
-        Route::match(['get','post'],'previous_transaction',[ReportsController::class,'previoussalestransaction']);
-        Route::get('monthly_sales',[ReportsController::class,'monthlysales']);
-        Route::match(['get','post'],'monthly_transaction',[ReportsController::class,'monthlysalestransaction']);
+        Route::get('daily_sales',[App\Http\Controllers\Admin\ReportsController::class,'dailysales']);
+        Route::match(['get','post'],'previous_transaction',[App\Http\Controllers\Admin\ReportsController::class,'previoussalestransaction']);
+        Route::get('monthly_sales',[App\Http\Controllers\Admin\ReportsController::class,'monthlysales']);
+        Route::match(['get','post'],'monthly_transaction',[App\Http\Controllers\Admin\ReportsController::class,'monthlysalestransaction']);
         // Expenses
-        Route::get('shops_daily_expenses',[ReportsController::class,'shopdailyexpenses']);
-        Route::match(['get','post'],'previous_expenses',[ReportsController::class,'previousshopexpenses']);
-        Route::get('shops_monthly_expenses',[ReportsController::class,'shopmonthexpenses']);
-        Route::match(['get','post'],'monthly_expenses',[ReportsController::class,'monthlyexpenses']);
+        Route::get('shops_daily_expenses',[App\Http\Controllers\Admin\ReportsController::class,'shopdailyexpenses']);
+        Route::match(['get','post'],'previous_expenses',[App\Http\Controllers\Admin\ReportsController::class,'previousshopexpenses']);
+        Route::get('shops_monthly_expenses',[App\Http\Controllers\Admin\ReportsController::class,'shopmonthexpenses']);
+        Route::match(['get','post'],'monthly_expenses',[App\Http\Controllers\Admin\ReportsController::class,'monthlyexpenses']);
 
 
 
@@ -330,7 +295,7 @@ Route::namespace('Sales')->group(function(){
 
         //Set Middleware to prevent unauthorized login
         Route::group(['middleware'=>['user']], function(){
-
+ 
             
             // Dashboard
             Route::get('dashboard',[UsersController::class,'dashboard']);
@@ -341,16 +306,17 @@ Route::namespace('Sales')->group(function(){
             //Check & Post User Current Password
             Route::match(['get','post'],'check_current_pswd',[UsersController::class,'chkCurrentPass']);
             Route::post('update_password',[UsersController::class,'updatePass']);
+            Route::post('update_first_time_password',[UsersController::class,'updateFirstTimePass']);
             // View Profile
             Route::match(['get','post'],'profile',[UsersController::class,'profile']);
 
             
 
             // Customers
-            Route::get('customers',[App\Http\Controllers\Sales\CustomersController::class,'customer']);
+            Route::get('customers',[CustomersController::class,'customer']);
 
             // Customer Sales Transaction
-            Route::match(['get','post'],'transaction',[App\Http\Controllers\Sales\CustomersController::class,'transaction']);
+            Route::match(['get','post'],'transaction',[CustomersController::class,'transaction']);
             // Add Transaction
             Route::match(['get','post'],'add_transaction/{id}',[SalesController::class,'addTrans']);
             // Update Discount on Transaction
@@ -366,59 +332,57 @@ Route::namespace('Sales')->group(function(){
             // Cancel Transaction
             Route::match(['get','post'],'cancel_transaction/{id}',[SalesController::class,'cancelTrans']);
             // Transaction Receipt
-            Route::match(['get','post'],'transreceipt/{id}',[App\Http\Controllers\Sales\ReceiptController::class,'transReceipt']);
+            Route::match(['get','post'],'transreceipt/{id}',[ReceiptController::class,'transReceipt']);
 
 
 
             // Temporal Credit Customers
-            Route::match(['get','post'],'temp_creditors',[App\Http\Controllers\Sales\CustomersController::class,'temp_creditors']);
+            Route::match(['get','post'],'temp_creditors',[CustomersController::class,'temp_creditors']);
             // Begin Transaction
-            Route::match(['get','post'],'temp_transaction',[App\Http\Controllers\Sales\CustomersController::class,'temp_transaction']);
+            Route::match(['get','post'],'temp_transaction',[CustomersController::class,'temp_transaction']);
             // Add Temporal Credit Transaction
-            Route::match(['get','post'],'add_temp_transaction/{id}',[App\Http\Controllers\Sales\TemporalCreditController::class,'addTempTrans']);
+            Route::match(['get','post'],'add_temp_transaction/{id}',[TemporalCreditController::class,'addTempTrans']);
             // Update Temporal Discount on Transaction
-            Route::match(['get','post'],'update_temp_discount_transaction/{id}',[App\Http\Controllers\Sales\TemporalCreditController::class,'updateTempDiscount']);
+            Route::match(['get','post'],'update_temp_discount_transaction/{id}',[TemporalCreditController::class,'updateTempDiscount']);
             // Update Temporal Qty on Transaction
-            Route::match(['get','post'],'update_temp_qty_transaction/{id}',[App\Http\Controllers\Sales\TemporalCreditController::class,'updateTempQty']);
+            Route::match(['get','post'],'update_temp_qty_transaction/{id}',[TemporalCreditController::class,'updateTempQty']);
             // Delete Temporal Credit Temp Transaction
-            Route::match(['get','post'],'delete_temp_transaction/{id}',[App\Http\Controllers\Sales\TemporalCreditController::class,'deleteTempTrans']);
+            Route::match(['get','post'],'delete_temp_transaction/{id}',[TemporalCreditController::class,'deleteTempTrans']);
             // Complete Sales Transaction
-            Route::match(['get','post'],'complete_temp_transaction/{id}',[App\Http\Controllers\Sales\TemporalCreditController::class,'completeTempTrans']);
+            Route::match(['get','post'],'complete_temp_transaction/{id}',[TemporalCreditController::class,'completeTempTrans']);
              // Cancel Temp Transaction
-             Route::match(['get','post'],'cancel_temp_transaction/{id}',[App\Http\Controllers\Sales\TemporalCreditController::class,'cancelTempTrans']);
+             Route::match(['get','post'],'cancel_temp_transaction/{id}',[TemporalCreditController::class,'cancelTempTrans']);
             // Success Message
-            Route::match(['get','post'],'temp_credit_success/{id}',[App\Http\Controllers\Sales\ReceiptController::class,'successmsgTempTrans']);
+            Route::match(['get','post'],'temp_credit_success/{id}',[ReceiptController::class,'successmsgTempTrans']);
             // View Temporal Transaction Details
-            Route::get('temporal_transaction_details/{id}',[App\Http\Controllers\Sales\TemporalCreditController::class,'tempTransDetails']);
+            Route::get('temporal_transaction_details/{id}',[TemporalCreditController::class,'tempTransDetails']);
 
 
 
 
 
             // Creditors
-            Route::get('creditors',[App\Http\Controllers\Sales\CustomersController::class,'creditors']);
+            Route::get('creditors',[CustomersController::class,'creditors']);
             // Add New Creditor
-            Route::match(['get','post'],'addcreditor',[App\Http\Controllers\Sales\CustomersController::class,'addcreditor']);
+            Route::match(['get','post'],'addcreditor',[CustomersController::class,'addcreditor']);
             // Creditor's Account Book
-            Route::match(['get','post'],'credit_account_summary/{id}',[App\Http\Controllers\Sales\CustomersController::class,'creditorsbook']);
+            Route::match(['get','post'],'credit_account_summary/{id}',[CustomersController::class,'creditorsbook']);
             // Add Credit Sales Transaction
-            Route::match(['get','post'],'credit_transaction/{id}',[App\Http\Controllers\Sales\CustomersController::class,'addCreditTrans']);
+            Route::match(['get','post'],'credit_transaction/{id}',[CustomersController::class,'addCreditTrans']);
             // Update Temporal Discount on Transaction
-            Route::match(['get','post'],'update_credit_discount_transaction/{id}',[App\Http\Controllers\Sales\CustomersController::class,'updateCreditDiscount']);
+            Route::match(['get','post'],'update_credit_discount_transaction/{id}',[CustomersController::class,'updateCreditDiscount']);
             // Update Temporal Qty on Transaction
-            Route::match(['get','post'],'update_credit_qty_transaction/{id}',[App\Http\Controllers\Sales\CustomersController::class,'updateCreditQty']);
+            Route::match(['get','post'],'update_credit_qty_transaction/{id}',[CustomersController::class,'updateCreditQty']);
             // Complete Sales Transaction
-            Route::match(['get','post'],'complete_credit_transaction/{id}',[App\Http\Controllers\Sales\CustomersController::class,'completeCreditTrans']);
-            // Delete Credit Transaction
-            Route::match(['get','post'], 'delete_credit_transaction/{id}', [App\Http\Controllers\Sales\CustomersController::class,'deleteCreditTrans']);
+            Route::match(['get','post'],'complete_credit_transaction/{id}',[CustomersController::class,'completeCreditTrans']);
             // Cancel Transaction
-            Route::match(['get','post'],'cancel_credit_transaction/{id}',[App\Http\Controllers\Sales\CustomersController::class,'cancelCreditTrans']);
+            Route::match(['get','post'],'cancel_credit_transaction/{id}',[CustomersController::class,'cancelCreditTrans']);
             // Transaction Receipt
-            Route::match(['get','post'],'credit_transreceipt/{id}',[App\Http\Controllers\Sales\ReceiptController::class,'transCreditReceipt']);
+            Route::match(['get','post'],'credit_transreceipt/{id}',[ReceiptController::class,'transCreditReceipt']);
             // Credit Paid
-            Route::match(['get','post'],'credit_paid/{id}',[App\Http\Controllers\Sales\PaymentsController::class,'creditPaid']);
+            Route::match(['get','post'],'credit_paid/{id}',[PaymentsController::class,'creditPaid']);
             // Credit Paid Details
-            Route::match(['get','post'],'credit_paid_details',[App\Http\Controllers\Sales\PaymentsController::class,'creditPaidDetail']);
+            Route::match(['get','post'],'credit_paid_details',[PaymentsController::class,'creditPaidDetail']);
 
 
 
@@ -452,18 +416,18 @@ Route::namespace('Sales')->group(function(){
 
 
             // Daily Expenses
-            Route::get('daily_expenses',[App\Http\Controllers\Sales\PaymentsController::class,'expenses']);
+            Route::get('daily_expenses',[PaymentsController::class,'expenses']);
             // Add Expenses
-            Route::match(['get','post'],'addexpense',[App\Http\Controllers\Sales\PaymentsController::class,'addexpense']);
+            Route::match(['get','post'],'addexpense',[PaymentsController::class,'addexpense']);
             // Get Detailed Of Expenses
-            Route::get('expenses_details',[App\Http\Controllers\Sales\PaymentsController::class,'expensesdetails']);
+            Route::get('expenses_details',[PaymentsController::class,'expensesdetails']);
 
 
 
             // Cash Book
-            Route::get('cashbook',[App\Http\Controllers\Sales\PaymentsController::class,'cashbook']);
+            Route::get('cashbook',[PaymentsController::class,'cashbook']);
             // Add Cash
-            Route::match(['get','post'],'addcash',[App\Http\Controllers\Sales\PaymentsController::class,'addcash']);
+            Route::match(['get','post'],'addcash',[PaymentsController::class,'addcash']);
 
 
             // Goods Sold To Other Shops
@@ -472,8 +436,10 @@ Route::namespace('Sales')->group(function(){
             Route::match(['get','post'],'addgoods',[StocksController::class,'addgoods']);
             // Gas Pounds
             Route::get('gas_pds',[StocksController::class,'gaspds']);
+            // Create New Gas
+            Route::match(['get','post'],'create_gas',[StocksController::class,'creategas']);
             // Open New Gas
-            Route::match(['get','post'],'open_gas',[StocksController::class,'opengas']);
+            Route::match(['get','post'],'open_new_gas/{id}',[StocksController::class,'opennewgas']);
 
 
             // View Product Price List
@@ -483,26 +449,47 @@ Route::namespace('Sales')->group(function(){
 
             // Reports
             // Previous Sales
-            Route::get('sales_trans',[App\Http\Controllers\Sales\ReportsController::class,'salestrans']);
-            Route::match(['get','post'],'previous_transaction',[App\Http\Controllers\Sales\ReportsController::class,'previoussalestransaction']);
-            Route::get('monthly_trans',[App\Http\Controllers\Sales\ReportsController::class,'monthlysales']);
-            Route::match(['get','post'],'monthly_transaction',[App\Http\Controllers\Sales\ReportsController::class,'monthlysalestransaction']);
+            Route::get('sales_trans',[ReportsController::class, 'salestrans']);
+            Route::match(['get','post'],'previous_transaction',[ReportsController::class, 'previoussalestransaction']);
+            Route::get('monthly_trans',[ReportsController::class, 'monthlysales']);
+            Route::match(['get','post'],'monthly_transaction',[ReportsController::class, 'monthlysalestransaction']);
             // Previous Expenses
-            Route::get('expenses_made',[App\Http\Controllers\Sales\ReportsController::class,'expensesmade']);
-            Route::match(['get','post'],'previous_expenses',[App\Http\Controllers\Sales\ReportsController::class,'prev_expenses']);
+            Route::get('expenses_made',[ReportsController::class, 'expensesmade']);
+            Route::match(['get','post'],'previous_expenses',[ReportsController::class, 'prev_expenses']);
 
 
             // Re-Print Customer's Receipt
-            Route::match(['get','post'],'re_print',[App\Http\Controllers\Sales\ReportsController::class,'reprint']);
+            Route::match(['get','post'],'re_print',[ReceiptController::class, 'reprint']);
 
             
             // Users Logout
-            Route::get('logout',[UsersController::class, 'logout']);
+            Route::get('logout',[UsersController::class,'logout']);
         });
         
     });
     
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

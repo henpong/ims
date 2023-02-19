@@ -10,24 +10,24 @@ class Customers extends Model
     // use HasFactory;
 
     public function users(){
-        return $this->belongsTo('App\User','user_id');
+        return $this->belongsTo('App\Models\User','user_id');
     }
 
 
     public function admins(){
-        return $this->belongsTo('App\Admin','user_id');
+        return $this->belongsTo('App\Models\Admin','user_id');
     }
 
 
     //Get Branch Detials From Branch Table Using Eloquent Relationship
     public function branch(){
-        return $this->belongsTo("App\Branches",'branch_id'); 
+        return $this->belongsTo("App\Models\Branches",'branch_id'); 
     }
 
 
     // Get Sales Details
     public function sales(){
-        return $this->belongsTo("App\Sales","sales_id");
+        return $this->belongsTo("App\Models\Sales","sales_id");
     }
 
 

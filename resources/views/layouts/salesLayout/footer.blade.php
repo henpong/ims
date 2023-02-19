@@ -85,7 +85,7 @@
 					<span aria-hidden="true" style="color:#ff0000;">&times;</span>
 					</button>
 				</div>
-			<div class="modal-body">Are you sure you want to log-out ?</div>
+				<div class="modal-body">Are you sure you want to log-out ?</div>
 				<div class="modal-footer">
 					<button class="btn btn-danger" type="button" data-dismiss="modal"> <i class="fas fa-times fa-sm fa-fw mr-2 text-gray-400"> </i> Cancel</button>
 					<a class="btn btn-primary" href="{{ url('/sales/logout') }}"> <i class="fas fa-power-off fa-sm fa-fw mr-2 text-gray-400"> </i> Logout</a>
@@ -93,6 +93,72 @@
 			</div>
 		</div>
     </div>
+
+
+
+    
+
+
+    <!-- Update First Time Login Password Modal-->
+    <div class="modal fade" id="updPsdFirstTimeModal" tabindex="-1" role="dialog" aria-labelledby="updPsdFirstTimeModalLabel" aria-hidden="true" style="background: rgba(0, 0, 0, 0.6)" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updPsdFirstTimeModalLabel"> <i class="fas fa-user-lock"> </i> Update Password</h5>
+                    <!-- <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color:#ff0000;">&times;</span>
+                    </button> -->
+                </div>
+                <div class="modal-body">
+
+                    <p style="color:#ff0000">
+                        Hello friend, I can see this is your first time of logging in... <br>Please enter your new password to start using the system.
+                    </p>
+                    <form role="form" method="POST" action="{{('/sales/update_first_time_password')}}" name="updateFirstTimePasswordForm" id="updateFirstTimePassword">@csrf
+                                                
+                            <div class="form-group">
+                                <label for="newFirstTimePass">New Password</label>
+                                <input type="password" class="form-control" id="newFirstTimePass" name="newFirstTimePass" placeholder="Enter New Password">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="confirmFirstTimePass">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirmFirstTimePass" name="confirmFirstTimePass" placeholder="Confirm New Password">
+                            </div> 
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Update Password</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Update Password Modal-->
+    <div class="modal fade" id="updPasswordModal" tabindex="-1" role="dialog" aria-labelledby="updPasswordModalLabel" aria-hidden="true" style="background: rgba(0, 0, 0, 0.6)" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updPasswordModalLabel"> <i class="fas fa-user-lock"> </i> Update Password</h5>
+                <!-- <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" style="color:#ff0000;">&times;</span>
+                </button> -->
+            </div>
+            <div class="modal-body">Great ! your password has been updated successfully. <br>Please log out and log in again.</div>
+            <div class="modal-footer">
+                <!-- <button class="btn btn-danger" type="button" data-dismiss="modal"> <i class="fas fa-times fa-sm fa-fw mr-2 text-gray-40"> </i> No </button> -->
+                <a class="btn btn-primary" href="{{ url('/sales/logout') }}"> <i class="fas fa-power-off fa-sm fa-fw mr-2 text-gray-40"> </i> Logout</a>
+            </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
     <footer class="iq-footer">
@@ -119,46 +185,39 @@
     <!-- DataTables -->
     <script src="{{asset('backEnd/plugins/datatables/jquery.dataTables.js')}}"></script>
     <script src="{{asset('backEnd/plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
+	<!-- JQUERY VALIDATION -->
+	<script src="{{asset('backEnd/js/validation.min.js')}}"></script>
     <!--Custom Admin JS -->
-    <!-- <script src="{{asset('backEnd/js/admin_script.js')}}"></script> -->
+    <script src="{{asset('backEnd/js/admin_script.js')}}"></script>
     <!-- Select 2 -->
     <script src="{{asset('backEnd/plugins/select2/js/select2.min.js')}}"></script>
     <script src="{{asset('backEnd/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
     <script src="{{asset('backEnd/plugins/bootstrap-datepicker/js/daterangepicker.min.js')}}"></script>
     <!-- Sweet Alert2 -->
     <script src="{{asset('backEnd/js/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
-    
     <!-- Table Treeview JavaScript -->
     <script src="{{asset('backEnd/js/table-treeview.js')}}"></script>
-    
     <!-- Chart Custom JavaScript -->
     <script src="{{asset('backEnd/js/customizer.js')}}"></script>
-    
     <!-- Chart Custom JavaScript -->
     <script async src="{{asset('backEnd/js/chart-custom.js')}}"></script>
-    
     <!-- app JavaScript -->
     <script src="{{asset('backEnd/js/app.js')}}"></script>
-
-
 	<!-- Atlantis JS -->
 	<script src="{{asset('frontEnd/js/atlantis.min.js')}}"></script>
-
 	<!-- Atlantis DEMO methods, don't include it in your project! -->
 	<script src="{{asset('frontEnd/js/setting-demo.js')}}"></script>
 	<script src="{{asset('frontEnd/js/demo.js')}}"></script>
-	
 	<!--Custom  JS -->
-	<script src="{{asset('frontEnd/js/front_script.js')}}"></script>
+	<!-- <script src="{{asset('frontEnd/js/front_script.js')}}"></script> -->
 	<!-- Select 2 -->
 	<script src="{{asset('frontEnd/plugins/select2/select2.min.js')}}"></script>
-
-
 	<!-- Calculate Sales -->
 	<script src="{{asset('frontEnd/js/autosum.js')}}"></script>
-
 	<!-- Toastr Notification -->
     <script src="{{asset('backEnd/js/toastr.min.js')}}"></script>
+
+
 
 	<script>
 		$('#lineChart').sparkline([102,109,120,99,110,105,115], {
@@ -208,7 +267,8 @@
 
 	<script>
 		$( ".selectpicker" ).select2({
-			theme: "bootstrap"
+			theme: "bootstrap",
+			width: "100%"
 		});
 	</script>
 
@@ -284,23 +344,44 @@
 
 
 
-  <!-- Display Success Message -->
-  @if(Session::has('success_message'))
-      <script>
-         toastr.success("{!!Session::get('success_message') !!}");
-         var audio = new Audio('audio.mp3');
-            audio.play();
-      </script>
-  @endif
-  <!-- Display Error Message -->
-  @if(Session::has('error_message'))
-      <script>
-         toastr.error("{!!Session::get('error_message') !!}");
-         var audio = new Audio('audio.mp3');
-            audio.play();
-      </script>
-  @endif
+	<!-- Display Success Message -->
+	@if(Session::has('success_message'))
+		<script>
+			toastr.success("{!!Session::get('success_message') !!}");
+		</script>
+	@endif
+	<!-- Display Error Message -->
+	@if(Session::has('error_message'))
+		<script>
+			toastr.error("{!!Session::get('error_message') !!}");
+		</script>
+	@endif
 
   
+
+
+
+	@if(Session::has('first_log'))        
+        <script>
+            toastr.success("{!!Session::get('first_log') !!}");
+
+            $(function() {
+                $('#updPsdFirstTimeModal').modal('show');
+            });
+        </script>
+    @endif
+
+
+    @if(Session::has('upd_pass'))        
+        <script>
+            toastr.success("{!!Session::get('upd_pass') !!}");
+
+            $(function() {
+                $('#updPasswordModal').modal('show');
+            });
+        </script>
+    @endif
+
+
   </body>
 </html>
