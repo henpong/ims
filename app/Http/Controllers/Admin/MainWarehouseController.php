@@ -236,158 +236,322 @@ class MainWarehouseController extends Controller
 
     
 
-    //Add New Order In Main Warehouse
-    public function addNewOrder(Request $request, $id=null){
-        if($id == ""){
 
+        //Add New Order In Main Warehouse
+        public function addNewOrder(Request $request, $id){
+             
             $title = "Add New Order";
-            $metaTitle = "Add New Order | CHIBOY ENTERPRISE";
-
-            $getProductData = array();
-            // $neworder = new MainWarehouse;
-
-        }else{
-            $title = "Update Order";
-            $metaTitle = "Update Order | CHIBOY ENTERPRISE";
-
+            $metaTitle = "Add New Order | JOHN K. SERVICES";
+    
+    
+            
             $getProductData = MainWarehouse::where('id',$id)->first();
-             //echo "<pre>"; print_r($getProductData); die;
-        }
-
-        if($request->isMethod('post')){
-            $data = $request->all();
-
-            // echo "<pre>"; print_r($data); die;
-
-            //Get New Entries From User
-            $newQtyCtns = $data['numberQtyCtns'];
-            if($newQtyCtns == ""){
-                $newQtyCtns = 0;
-            }else{
+    
+    
+            if($request->isMethod('post')){
+    
+                $data = $request->all();
+    
+                // echo "<pre>"; print_r($data); die;
+    
+                //Get New Entries From User
                 $newQtyCtns = $data['numberQtyCtns'];
-            }
-            $newQtyOrdered = $data['qtyOrdered'];
-            if($newQtyOrdered == ""){
-                $newQtyOrdered = 0;
-            }else{
+                // if($newQtyCtns == ""){
+                //     $newQtyCtns = 0;
+                // }else{
+                //     $newQtyCtns = $data['numberQtyCtns'];
+                // }
                 $newQtyOrdered = $data['qtyOrdered'];
-            }
-            $additionalQty = $data['additionalQty'];
-            if($additionalQty == ""){
-                $additionalQty = 0;
-            }else{
+                if($newQtyOrdered == ""){
+                    $newQtyOrdered = 0;
+                }else{
+                    $newQtyOrdered = $data['qtyOrdered'];
+                }
                 $additionalQty = $data['additionalQty'];
+                if($additionalQty == ""){
+                    $additionalQty = 0;
+                }else{
+                    $additionalQty = $data['additionalQty'];
+                }
+    
+                // echo "<pre>"; print_r($additionalQty); die;
+    
+                $date = date("Y-m-d H:i:s");
+                //End of Entries From User
+    
+    
+             
+    
+    
+                //Get Data From Main Warehouse Table
+                $getOldData = MainWarehouse::where('id',$id)->first();
+                $getOldData = json_decode(json_encode($getOldData),true);
+                // echo "<pre>"; print_r($getOldData); die;
+    
+                $oldQtyCtns = $getOldData['newprod_qtyctn'];
+                $oldAdditionalQty = $getOldData['addprod_qtypcs'];
+                $oldTotalQty = $getOldData['total_prodqtypcs'];
+                $qtyBox = $getOldData['qtybox'];
+                $prodcost = $getOldData['prodcost'];
+                $action = "has added";
+                //End of Data From Main Warehouse
+    
+                
+                
+                // $userId = MainWarehouse::with('user')->where('id',$id)->first();
+                // $userId = json_decode(json_encode($userId));
+                // echo "<pre>"; print_r($id); die;
+    
+    
+                //Set Condition
+                if($newQtyCtns == ""){
+    
+                    $message = "Congrats, new order has been entered successfully!";
+    
+    
+                    $tot = (($newQtyOrdered * $qtyBox) + ($oldTotalQty + $additionalQty));
+    
+                    
+                    // echo "<pre>"; print_r($tot); die;
+    
+    
+                    //Update Main Warehouse Table
+                    MainWarehouse::where('id',$id)->update(['newprod_qtyctn'=>($newQtyOrdered + $oldQtyCtns),'addprod_qtypcs'=>($oldAdditionalQty + $additionalQty),
+                    'total_prodqtypcs'=>$tot,'newprod_date'=>$date]);
+    
+    
+                    
+                // echo "<pre>"; print_r($tot); die;
+                    
+                    //Insert record Into Main WarehouseLog Table
+                    $mainWarehouseLog = new MainWarehouseLog;
+    
+                    $mainWarehouseLog->main_warehouse_id = $getOldData['id'];
+                    $mainWarehouseLog->admins_id = Auth::guard('admin')->user()->id;
+                    $mainWarehouseLog->action = $action;
+                    $mainWarehouseLog->qty_addctn = $newQtyOrdered;
+                    $mainWarehouseLog->additional_qty = $additionalQty;
+                    $mainWarehouseLog->total_qtypcs = (($newQtyOrdered * $qtyBox) + ($oldTotalQty + $additionalQty));
+                    $mainWarehouseLog->prodcost = $prodcost;
+                    $mainWarehouseLog->total_prodcost = 0;
+                    $mainWarehouseLog->date_added = $date;
+                    $mainWarehouseLog->qty_takenctn = 0;
+                    $mainWarehouseLog->qty_takenpcs = 0;
+                    $mainWarehouseLog->date_taken = $date;
+                    $mainWarehouseLog->log = 1;
+                    $mainWarehouseLog->delog = 1;
+                    $mainWarehouseLog->category_id = $getOldData['category_id'];
+                    $mainWarehouseLog->supplier_id = $getOldData['supplier_id'];
+                    $mainWarehouseLog->unit_id = $getOldData['unit_id'];
+                    $mainWarehouseLog->brand_id = $getOldData['brand_id'];
+                    $mainWarehouseLog->warehouse = $getOldData['warehouse'];
+                    $mainWarehouseLog->stockrequestid = 0;
+    
+                    $mainWarehouseLog->save();
+    
+    
+                    Session::flash('success_message',$message);
+                    return redirect('admin/mainwarehouse');
+    
+                }else{
+    
+                    $message = "Congrats, new order has been entered successfully!";
+    
+    
+                    //Update Main Warehouse Table
+                    MainWarehouse::where('id',$id)->update(['newprod_qtyctn'=>($newQtyOrdered + $oldQtyCtns), 'addprod_qtypcs'=>($oldAdditionalQty + $additionalQty),'total_prodqtypcs'=>(($newQtyOrdered * $newQtyCtns) + ($oldTotalQty + $additionalQty)), 'qtybox'=>$newQtyCtns, 'newprod_date'=>$date]);
+    
+    
+                     //Insert record Into Main WarehouseLog Table
+                     $mainWarehouseLog = new MainWarehouseLog;
+    
+                     $mainWarehouseLog->main_warehouse_id = $getOldData['id'];
+                     $mainWarehouseLog->admins_id = Auth::guard('admin')->user()->id;
+                     $mainWarehouseLog->action = $action;
+                     $mainWarehouseLog->qty_addctn = $newQtyOrdered;
+                     $mainWarehouseLog->additional_qty = $additionalQty;
+                     $mainWarehouseLog->total_qtypcs = (($newQtyOrdered * $newQtyCtns) + ($oldTotalQty + $additionalQty));
+                     $mainWarehouseLog->prodcost = $prodcost;
+                     $mainWarehouseLog->total_prodcost = 0;
+                     $mainWarehouseLog->date_added = $date;
+                     $mainWarehouseLog->qty_takenctn = 0;
+                     $mainWarehouseLog->qty_takenpcs = 0;
+                     $mainWarehouseLog->date_taken = $date;
+                     $mainWarehouseLog->log = 1;
+                     $mainWarehouseLog->delog = 1;
+                     $mainWarehouseLog->category_id = $getOldData['category_id'];
+                     $mainWarehouseLog->supplier_id = $getOldData['supplier_id'];
+                     $mainWarehouseLog->unit_id = $getOldData['unit_id'];
+                     $mainWarehouseLog->brand_id = $getOldData['brand_id'];
+                     $mainWarehouseLog->warehouse = $getOldData['warehouse'];
+                     $mainWarehouseLog->stockrequestid = 1;
+     
+                     $mainWarehouseLog->save();
+    
+    
+                    Session::flash('success_message',$message);
+                    return redirect('admin/mainwarehouse');
+                }
+                
             }
+            
+    
+            return view('layouts.admin.mainwarehouse.new_order')->with(compact('title','metaTitle','getProductData'));
+        }
+    
 
-            // echo "<pre>"; print_r($additionalQty); die;
+    //Add New Order In Main Warehouse
+    // public function addNewOrder(Request $request, $id=null){
+    //     if($id == ""){
 
-            $date = date("Y-m-d H:i:s");
-            //End of Entries From User
+    //         $title = "Add New Order";
+    //         $metaTitle = "Add New Order | CHIBOY ENTERPRISE";
 
-            //Get Data From Main Warehouse Table
-            $getOldData = MainWarehouse::where('id',$id)->first();
-            $getOldData = json_decode(json_encode($getOldData),true);
-            // echo "<pre>"; print_r($getOldData); die;
+    //         $getProductData = array();
+    //         // $neworder = new MainWarehouse;
 
-            $oldQtyCtns = $getOldData['newprod_qtyctn'];
-            $oldAdditionalQty = $getOldData['addprod_qtypcs'];
-            $oldTotalQty = $getOldData['total_prodqtypcs'];
-            $qtyBox = $getOldData['qtybox'];
-            $prodcost = $getOldData['prodcost'];
-            $action = "has added";
-            //End of Data From Main Warehouse
+    //     }else{
+    //         $title = "Update Order";
+    //         $metaTitle = "Update Order | CHIBOY ENTERPRISE";
+
+    //         $getProductData = MainWarehouse::where('id',$id)->first();
+    //          //echo "<pre>"; print_r($getProductData); die;
+    //     }
+
+    //     if($request->isMethod('post')){
+    //         $data = $request->all();
+
+    //         // echo "<pre>"; print_r($data); die;
+
+    //         //Get New Entries From User
+    //         $newQtyCtns = $data['numberQtyCtns'];
+    //         if($newQtyCtns == ""){
+    //             $newQtyCtns = 0;
+    //         }else{
+    //             $newQtyCtns = $data['numberQtyCtns'];
+    //         }
+    //         $newQtyOrdered = $data['qtyOrdered'];
+    //         if($newQtyOrdered == ""){
+    //             $newQtyOrdered = 0;
+    //         }else{
+    //             $newQtyOrdered = $data['qtyOrdered'];
+    //         }
+    //         $additionalQty = $data['additionalQty'];
+    //         if($additionalQty == ""){
+    //             $additionalQty = 0;
+    //         }else{
+    //             $additionalQty = $data['additionalQty'];
+    //         }
+
+    //         // echo "<pre>"; print_r($additionalQty); die;
+
+    //         $date = date("Y-m-d H:i:s");
+    //         //End of Entries From User
+
+    //         //Get Data From Main Warehouse Table
+    //         $getOldData = MainWarehouse::where('id',$id)->first();
+    //         $getOldData = json_decode(json_encode($getOldData),true);
+    //         // echo "<pre>"; print_r($getOldData); die;
+
+    //         $oldQtyCtns = $getOldData['newprod_qtyctn'];
+    //         $oldAdditionalQty = $getOldData['addprod_qtypcs'];
+    //         $oldTotalQty = $getOldData['total_prodqtypcs'];
+    //         $qtyBox = $getOldData['qtybox'];
+    //         $prodcost = $getOldData['prodcost'];
+    //         $action = "has added";
+    //         //End of Data From Main Warehouse
 
             
-            // $userId = MainWarehouse::with('user')->where('id',$id)->first();
-            // $userId = json_decode(json_encode($userId));
-            // echo "<pre>"; print_r($userId); die;
+    //         // $userId = MainWarehouse::with('user')->where('id',$id)->first();
+    //         // $userId = json_decode(json_encode($userId));
+    //         // echo "<pre>"; print_r($userId); die;
 
 
-            //Set Condition
-            if($newQtyCtns == ""){
+    //         //Set Condition
+    //         if($newQtyCtns == ""){
 
-                $message = "Congrats, new order has been entered successfully!";
+    //             $message = "Congrats, new order has been entered successfully!";
 
 
-                //Update Main Warehouse Table
-                MainWarehouse::where('id',$getOldData['id'])->update(['newprod_qtyctn'=>($newQtyOrdered + $oldQtyCtns),'addprod_qtypcs'=>($oldAdditionalQty + $additionalQty),
-                'total_prodqtypcs'=>(($newQtyOrdered * $qtyBox) + ($oldTotalQty + $additionalQty)),'newprod_date'=>$date]);
+    //             //Update Main Warehouse Table
+    //             MainWarehouse::where('id',$getOldData['id'])->update(['newprod_qtyctn'=>($newQtyOrdered + $oldQtyCtns),'addprod_qtypcs'=>($oldAdditionalQty + $additionalQty),
+    //             'total_prodqtypcs'=>(($newQtyOrdered * $qtyBox) + ($oldTotalQty + $additionalQty)),'newprod_date'=>$date]);
 
                 
-                //Insert record Into Main WarehouseLog Table
-                $mainWarehouseLog = new MainWarehouseLog;
+    //             //Insert record Into Main WarehouseLog Table
+    //             $mainWarehouseLog = new MainWarehouseLog;
 
-                $mainWarehouseLog->main_warehouse_id = $getOldData['id'];
-                $mainWarehouseLog->admins_id = Auth::guard('admin')->user()->id;
-                $mainWarehouseLog->action = $action;
-                $mainWarehouseLog->qty_addctn = $newQtyOrdered;
-                $mainWarehouseLog->additional_qty = $additionalQty;
-                $mainWarehouseLog->total_qtypcs = (($newQtyOrdered * $qtyBox) + ($oldTotalQty + $additionalQty));
-                $mainWarehouseLog->prodcost = $prodcost;
-                $mainWarehouseLog->total_prodcost = 0;
-                $mainWarehouseLog->date_added = $date;
-                $mainWarehouseLog->qty_takenctn = 0;
-                $mainWarehouseLog->qty_takenpcs = 0;
-                $mainWarehouseLog->date_taken = $date;
-                $mainWarehouseLog->log = 1;
-                $mainWarehouseLog->delog = 1;
-                $mainWarehouseLog->category_id = $getOldData['category_id'];
-                $mainWarehouseLog->supplier_id = $getOldData['supplier_id'];
-                $mainWarehouseLog->unit_id = $getOldData['unit_id'];
-                $mainWarehouseLog->brand_id = $getOldData['brand_id'];
-                $mainWarehouseLog->warehouse = $getOldData['warehouse'];
-                $mainWarehouseLog->stockrequestid = 0;
+    //             $mainWarehouseLog->main_warehouse_id = $getOldData['id'];
+    //             $mainWarehouseLog->admins_id = Auth::guard('admin')->user()->id;
+    //             $mainWarehouseLog->action = $action;
+    //             $mainWarehouseLog->qty_addctn = $newQtyOrdered;
+    //             $mainWarehouseLog->additional_qty = $additionalQty;
+    //             $mainWarehouseLog->total_qtypcs = (($newQtyOrdered * $qtyBox) + ($oldTotalQty + $additionalQty));
+    //             $mainWarehouseLog->prodcost = $prodcost;
+    //             $mainWarehouseLog->total_prodcost = 0;
+    //             $mainWarehouseLog->date_added = $date;
+    //             $mainWarehouseLog->qty_takenctn = 0;
+    //             $mainWarehouseLog->qty_takenpcs = 0;
+    //             $mainWarehouseLog->date_taken = $date;
+    //             $mainWarehouseLog->log = 1;
+    //             $mainWarehouseLog->delog = 1;
+    //             $mainWarehouseLog->category_id = $getOldData['category_id'];
+    //             $mainWarehouseLog->supplier_id = $getOldData['supplier_id'];
+    //             $mainWarehouseLog->unit_id = $getOldData['unit_id'];
+    //             $mainWarehouseLog->brand_id = $getOldData['brand_id'];
+    //             $mainWarehouseLog->warehouse = $getOldData['warehouse'];
+    //             $mainWarehouseLog->stockrequestid = 0;
 
-                $mainWarehouseLog->save();
-
-
-                Session::flash('success_message',$message);
-                return redirect('admin/mainwarehouse');
-            }else{
-
-                $message = "Congrats, new order has been entered successfully!";
+    //             $mainWarehouseLog->save();
 
 
-                //Update Main Warehouse Table
-                MainWarehouse::where('id',$id)->update(['newprod_qtyctn'=>($newQtyOrdered + $oldQtyCtns), 'addprod_qtypcs'=>($oldAdditionalQty + $additionalQty),'total_prodqtypcs'=>(($newQtyOrdered * $newQtyCtns) + ($oldTotalQty + $additionalQty)), 'qtybox'=>$newQtyCtns, 'newprod_date'=>$date]);
+    //             Session::flash('success_message',$message);
+    //             return redirect('admin/mainwarehouse');
+    //         }else{
+
+    //             $message = "Congrats, new order has been entered successfully!";
 
 
-                 //Insert record Into Main WarehouseLog Table
-                 $mainWarehouseLog = new MainWarehouseLog;
+    //             //Update Main Warehouse Table
+    //             MainWarehouse::where('id',$id)->update(['newprod_qtyctn'=>($newQtyOrdered + $oldQtyCtns), 'addprod_qtypcs'=>($oldAdditionalQty + $additionalQty),'total_prodqtypcs'=>(($newQtyOrdered * $newQtyCtns) + ($oldTotalQty + $additionalQty)), 'qtybox'=>$newQtyCtns, 'newprod_date'=>$date]);
 
-                 $mainWarehouseLog->main_warehouse_id = $getOldData['id'];
-                 $mainWarehouseLog->admins_id = Auth::guard('admin')->user()->id;
-                 $mainWarehouseLog->action = $action;
-                 $mainWarehouseLog->qty_addctn = $newQtyOrdered;
-                 $mainWarehouseLog->additional_qty = $additionalQty;
-                 $mainWarehouseLog->total_qtypcs = (($newQtyOrdered * $newQtyCtns) + ($oldTotalQty + $additionalQty));
-                 $mainWarehouseLog->prodcost = $prodcost;
-                 $mainWarehouseLog->total_prodcost = 0;
-                 $mainWarehouseLog->date_added = $date;
-                 $mainWarehouseLog->qty_takenctn = 0;
-                 $mainWarehouseLog->qty_takenpcs = 0;
-                 $mainWarehouseLog->date_taken = $date;
-                 $mainWarehouseLog->log = 1;
-                 $mainWarehouseLog->delog = 1;
-                 $mainWarehouseLog->category_id = $getOldData['category_id'];
-                 $mainWarehouseLog->supplier_id = $getOldData['supplier_id'];
-                 $mainWarehouseLog->unit_id = $getOldData['unit_id'];
-                 $mainWarehouseLog->brand_id = $getOldData['brand_id'];
-                 $mainWarehouseLog->warehouse = $getOldData['warehouse'];
-                 $mainWarehouseLog->stockrequestid = 1;
+
+    //              //Insert record Into Main WarehouseLog Table
+    //              $mainWarehouseLog = new MainWarehouseLog;
+
+    //              $mainWarehouseLog->main_warehouse_id = $getOldData['id'];
+    //              $mainWarehouseLog->admins_id = Auth::guard('admin')->user()->id;
+    //              $mainWarehouseLog->action = $action;
+    //              $mainWarehouseLog->qty_addctn = $newQtyOrdered;
+    //              $mainWarehouseLog->additional_qty = $additionalQty;
+    //              $mainWarehouseLog->total_qtypcs = (($newQtyOrdered * $newQtyCtns) + ($oldTotalQty + $additionalQty));
+    //              $mainWarehouseLog->prodcost = $prodcost;
+    //              $mainWarehouseLog->total_prodcost = 0;
+    //              $mainWarehouseLog->date_added = $date;
+    //              $mainWarehouseLog->qty_takenctn = 0;
+    //              $mainWarehouseLog->qty_takenpcs = 0;
+    //              $mainWarehouseLog->date_taken = $date;
+    //              $mainWarehouseLog->log = 1;
+    //              $mainWarehouseLog->delog = 1;
+    //              $mainWarehouseLog->category_id = $getOldData['category_id'];
+    //              $mainWarehouseLog->supplier_id = $getOldData['supplier_id'];
+    //              $mainWarehouseLog->unit_id = $getOldData['unit_id'];
+    //              $mainWarehouseLog->brand_id = $getOldData['brand_id'];
+    //              $mainWarehouseLog->warehouse = $getOldData['warehouse'];
+    //              $mainWarehouseLog->stockrequestid = 1;
  
-                 $mainWarehouseLog->save();
+    //              $mainWarehouseLog->save();
 
 
-                Session::flash('success_message',$message);
-                return redirect('admin/mainwarehouse');
-            }
+    //             Session::flash('success_message',$message);
+    //             return redirect('admin/mainwarehouse');
+    //         }
             
-        }
+    //     }
         
 
-        return view('layouts.admin.mainwarehouse.new_order')->with(compact('title','metaTitle','getProductData'));
-    }
+    //     return view('layouts.admin.mainwarehouse.new_order')->with(compact('title','metaTitle','getProductData'));
+    // }
 
 
 

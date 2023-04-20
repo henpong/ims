@@ -87,11 +87,11 @@ $branches = Branches::getbranches();
                 <!-- End of Form -->
                 <br><br>
             </div>
-                @if(!empty($startDate))
-                    <h3><center>Expenses Made From <strong>{{ date("jS F, Y ", strtotime( $startDate )) }}</strong> To <strong>{{ date("jS F, Y ", strtotime( $endDate )) }}</strong></center></h3>
-                @else
-                    <h4><center><span style="color:#ff0000">Sorry, there was no expenses made on this day.</span> &nbsp;&nbsp; Please select another date.</center></h4>
-                @endif
+            @if(!empty($startDate))
+                <h3><center>Expenses Made From <strong>{{ date("jS F, Y ", strtotime( $startDate )) }}</strong> To <strong>{{ date("jS F, Y ", strtotime( $endDate )) }}</strong></center></h3>
+            @else
+                <h4><center><span style="color:#ff0000">Sorry, there was no expenses made on this day.</span> &nbsp;&nbsp; Please select another date.</center></h4>
+            @endif
 
             @if(!empty($expensetrans))
 

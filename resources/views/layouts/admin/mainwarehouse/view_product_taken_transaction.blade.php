@@ -1,9 +1,6 @@
 @extends('layouts.adminLayout.admin_design')
 @section('content')
 
-
-
-
   <div class="col-sm-6 ">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -72,17 +69,17 @@
                       
                           <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$viewProduct->users->name}}</td>
-                            <td>{{$viewProduct->action}}</td>
-                            <td>{{$viewProduct->qty_takenctn}}</td>
-                            <td>{{$viewProduct->stockrequest->additional_qty_requested}}</td>
-                            <td>{{$viewProduct->qty_takenpcs}}</td>
-                            <td>{{date("jS M., Y  H:i:s",strtotime($viewProduct->date_taken))}}</td>
-                            <td>{{$viewProduct->stockrequest->request_status}}</td>
-                            <td>{{$viewProduct->mainwarehouse->warehousename->name}}</td>
+                            <td>{{$viewProduct['users']['name']}}</td>
+                            <td>{{$viewProduct['action']}}</td>
+                            <td>{{$viewProduct['qty_takenctn']}}</td>
+                            <td>{{$viewProduct['stockrequest']['additional_qty_requested']}}</td>
+                            <td>{{$viewProduct['qty_takenpcs']}}</td>
+                            <td>{{date("jS M., Y  H:i:s",strtotime($viewProduct['date_taken']))}}</td>
+                            <td>{{$viewProduct['stockrequest']['request_status']}}</td>
+                            <td>{{$viewProduct['warehousename']['name']}}</td>
                             <td>
                                 
-                              <a href="javascript:void(0)" class="confirmDelete" record="mainwarehouseLogTaken" recordid="{{ $viewProduct->id }}"><i class="fas fa-trash-alt text-red fa-spin" ></i></a>
+                              <a href="javascript:void(0)" class="confirmDelete" record="mainwarehouseLogTaken" recordid="{{ $viewProduct['id'] }}"><i class="fas fa-trash-alt text-red fa-spin" ></i></a>
                             </td>
                           </tr>
                         @endforeach

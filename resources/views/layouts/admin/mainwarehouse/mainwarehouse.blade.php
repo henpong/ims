@@ -99,8 +99,8 @@
                                   href="{{ url('admin/view_product_taken_transaction/'.$mainwarehouse->id )}}"><i class="fas fa-share-square text-blue" style="font-size:20px;"></i></a>
                               <a class="mr-2" data-toggle="tooltip" data-placement="top" title="View Product Sold Transaction" data-original-title="View Product Sold Transaction"
                                   href="{{ url('admin/view_product_sold_transaction/'.$mainwarehouse->id )}}"><i class="fas fa-hat-cowboy text-red" style="font-size:20px;"></i></a>
-                              <a class="confirmDelete ml-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Product"
-                                  href="javascript:void(0)" record="mainwarehouse" recordid="{{ $mainwarehouse->id }}"><i class="fas fa-trash-alt mr-0 text-red" style="font-size:20px;"></i></a>
+                              <!-- <a class="confirmDelete ml-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Product"
+                                  href="javascript:void(0)" record="mainwarehouse" recordid="{{ $mainwarehouse->id }}"><i class="fas fa-trash-alt mr-0 text-red" style="font-size:20px;"></i></a> -->
                           </div>
 
                           

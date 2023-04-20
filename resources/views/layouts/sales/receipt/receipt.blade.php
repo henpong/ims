@@ -21,7 +21,7 @@
   
 <div class="row">
     <div class="col-12">
-
+ 
       <!-- Invoice -->
       <div id="invoice-POS">
 

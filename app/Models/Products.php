@@ -147,7 +147,9 @@ class Products extends Model
 
       //Create a relation to get sub categories
       public function getgas(){
-        return $this->hasMany('App\Models\Categories','parent_id')->where(['parent_id'=>0,'category_status'=>1])->where('category_status',1);
+        return $this->hasMany('App\Models\Categories','parent_id')
+        ->where(['parent_id'=>0,'category_status'=>1])
+        ->where('category_status',1);
     }
 
 
@@ -160,6 +162,19 @@ class Products extends Model
         $mainwarehouseproduct = MainWarehouse::get();
         return $mainwarehouseproduct;
 
+    }
+
+
+      // Get All Gas Cylinders
+      public static function getallgas(){
+
+        $userId = session('user')['userid'];
+        $branchid = session('user')['branchid'];
+
+        $getallgas = Products::where('branch_id',$branchid)
+        ->where('product_name','LIKE', '%Gas Cylinder%')->where('status',1)->get();
+        // dd($getallgas); die;
+        return $getallgas;
     }
 
 }

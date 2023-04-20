@@ -20,6 +20,7 @@ use App\Models\Sales;
 use App\Models\SpoiltGoods;
 use App\Models\OtherShopGoods;
 use App\Models\Receipt;
+use App\Models\GasPds;
 use Session;
 
 
@@ -877,6 +878,89 @@ class StocksController extends Controller
                 }
             }
         }
+    }
+
+
+
+
+    
+    public function creategas(Request $request){
+        $metaTitle = "Fetch Gas Pounds | JOHN K. SERVICES";
+        
+        // Get Branch Id
+        $userId = session('user')['userid'];
+        $branchid = session('user')['branchid'];
+
+
+        if($request->isMethod('post')){
+            $data = $request->all();
+
+            // echo "<pre>"; print_r($data); die;
+
+            // Check If Product Already Exists
+            $chkGas = GasPds::where('product_id',$data['productid'])->where('branch_id',$branchid)->count();
+
+            if($chkGas > 0){
+                Session::flash('error_message','Sorry, this product already exists.');
+                return redirect()->back();
+            }else{
+                
+                // Get Gas Name
+                $gasName = Products::where('id',$data['productid'])
+                ->where('branch_id',$branchid)->where('status',1)->first();
+                $gasName = json_decode(json_encode($gasName));
+                $gas = $gasName->product_name;
+                $prodCode = $gasName->product_code;
+
+                // echo "<pre>"; print_r($prodCode); die;
+
+                $name = explode(" ", $gas);
+                $newGasPdsName = $name[0]." ".$name[1]." "."(Pds)";
+
+                $pCode = $prodCode."-"."(Pds)";
+
+                // echo "<pre>"; print_r($pCode); die;
+
+
+                // Insert Into Product Table
+                $prodGas = new Products;
+                $prodGas->main_warehouse_id = 0;
+                $prodGas->category_id = $gasName->category_id;
+                $prodGas->branch_id = $gasName->branch_id;
+                $prodGas->product_name = $newGasPdsName;
+                $prodGas->product_code = $pCode;
+                $prodGas->wholesale_qty = 1;
+                $prodGas->product_wholesale_price = "0.00";
+                $prodGas->product_price = "0.00";
+                $prodGas->product_qty = "0.0";
+                $prodGas->lowstock_point = 1;
+                $prodGas->ware_id = $gasName->ware_id;
+                $prodGas->status = 2;
+
+                $prodGas->save();
+
+                $newProdId = $prodGas->id;
+
+
+                // Insert Into Gas Pounds Table
+                $gas = new GasPds;
+                $gas->product_id = $data['productid'];
+                $gas->new_product_id = $newProdId;
+                $gas->product_code = $pCode;
+                $gas->branch_id = $branchid;
+                $gas->user_id = $userId;
+                $gas->gas_pds_name = $newGasPdsName;
+                $gas->status = 2;
+
+                $gas->save();
+
+        
+                Session::flash("success_message","Gas pound created successfully.");
+                return redirect()->back();
+            }
+            
+        }
+
     }
 
 

@@ -10,12 +10,12 @@ class Expenses extends Model
     // use HasFactory;
 
     public function branch(){
-        return $this->belongsTo("App\Branches","branch_id");
+        return $this->belongsTo("App\Models\Branches","branch_id");
     }
 
 
     public function user(){
-        return $this->belongsTo('App\User','user_id');
+        return $this->belongsTo('App\Models\User','user_id');
     }
 
 

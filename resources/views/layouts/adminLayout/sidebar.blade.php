@@ -21,6 +21,26 @@
                           </a>
                       </li>
 
+                      
+
+                        <!-- Cash book -->
+                        @if(Session::get('page')=="cashbook" )
+                            <?php $active = "active"; ?>
+                        @else 
+                            <?php $active = ""; ?>
+                        @endif
+                        <li class="nav-item">
+                                <a href="{{url('admin/cashbook')}}" class="svg-icon nav-link {{ $active }}">  
+                                    <svg class="svg-icon" id="p-dash3" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg>
+
+                                    <span class="ml-4">Cash Book</span>
+                            
+                            </a>
+                        </li>
+
+                        
                         <!-- Stock Request -->
                         @if(Session::get('page')=="stockrequest" )
                             <?php $active = "active"; ?>
@@ -49,7 +69,7 @@
                             
                             </a>
                         </li>
-                        <!-- Stock Request -->
+                        <!-- Temporal Credit -->
                         @if(Session::get('page')=="tempcredit" )
                             <?php $active = "active"; ?>
                         @else 
@@ -77,7 +97,7 @@
                             
                             </a>
                         </li>
-                        <!-- Stock Request -->
+                        <!-- Credit Request -->
                         @if(Session::get('page')=="creditrequest" )
                             <?php $active = "active"; ?>
                         @else 
@@ -107,10 +127,37 @@
                         </li>
 
 
-
                         
 
+                        <!-- Spoilt Goods -->
+                        @if(Session::get('page')=="spoiltgoods" )
+                            <?php $active = "active"; ?>
+                        @else 
+                            <?php $active = ""; ?>
+                        @endif
+                        <li class="nav-item">
+                                <a href="{{url('admin/spoilt_goods')}}" class="svg-icon nav-link {{ $active }}">                        
+                                    <svg class="svg-icon" id="p-dash6" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="14" y1="10" x2="21" y2="3"></line><line x1="3" y1="21" x2="10" y2="14"></line>
+                                    </svg>
+                                
+                                
+                                <?php
 
+                                    use App\Models\SpoiltGoods;
+                                    // Get All Spoilt Goods From The Soilt Goods Table
+                                    $spoiltGoods = SpoiltGoods::with('products')->where('spoilt_status',1)->where('check_status',1)->count();
+                                    // echo "<pre>"; print_r($spoiltGoods); die;
+
+                                ?>
+
+                                    <span class="ml-4">Spoilt Goods</span>
+                                    
+                                    <span class="badge badge-danger ml-2" style="font-size:13px;padding:5px 5px 5px 5px;"> {{ $spoiltGoods }} </span>
+                            
+                            </a>
+                        </li>
+                        
                       
                         <!-- Gas Pounds -->
                         @if(Session::get('page')=="gaspds" )
@@ -141,29 +188,7 @@
                             </a>
                         </li>
                         
-
-
-                        <!-- Cash book -->
-                        @if(Session::get('page')=="cashbook" )
-                            <?php $active = "active"; ?>
-                        @else 
-                            <?php $active = ""; ?>
-                        @endif
-                        <li class="nav-item">
-                                <a href="{{url('admin/cashbook')}}" class="svg-icon nav-link {{ $active }}">  
-                                    <svg class="svg-icon" id="p-dash3" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                                    </svg>
-
-                                    <span class="ml-4">Cash Book</span>
-                            
-                            </a>
-                        </li>
-
-
-
-
-                    
+                   
                         
                         @if(Session::get('page')=="branches" || Session::get('page')=="sections" || Session::get('page')=="categories" || Session::get('page')=="brands" || Session::get('page')=="units" )
                             <?php $active = "active"; ?>

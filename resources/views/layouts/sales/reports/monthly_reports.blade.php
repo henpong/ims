@@ -4,7 +4,7 @@
 
     <?php
 
-        use App\Branches;
+        use App\Models\Branches;
         $branches = Branches::getbranches();
 
     ?>

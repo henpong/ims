@@ -441,4 +441,41 @@ class ProductsController extends Controller
         session::flash('success_message',$message);
         return redirect('admin/products');
     }
+
+
+
+    
+    // Gas Pounds
+    public function gaspds(Request $request,$id = null){
+        $metaTitle = "Gas Pounds | CHIBOY ENTERPRISE";
+
+        if($request->isMethod("post")){
+
+            $data = $request->all();
+
+            // echo "<pre>"; print_r($data); die;
+
+            //Update Product Table
+            Products::where('id',$data['pdsid'])->update(['product_wholesale_price'=>$data['wprice'],'product_price'=>$data['uprice'],'status'=>1]);
+            // Update Gas Status
+            GasPds::where('new_product_id',$data['pdsid'])->update(['status'=>1]);
+            
+            Session::flash("success_message","Congrats, price set to gas pounds at branch successfully!");
+
+            return redirect('admin/gas_pds_shops');
+        }
+ 
+
+        // Get All Gas Pounds From The Products Table
+        $getgaspds = Products::with('branch')->where('main_warehouse_id',0)->get();
+        $gaspds = json_decode(json_encode($getgaspds),true);
+
+        // echo "<pre>"; print_r($gaspds); die;
+       
+        return view('layouts.admin.stocks.gaspds')->with(compact('metaTitle','getgaspds'));
+    }
+
+
+
+
 }

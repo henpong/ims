@@ -16,7 +16,7 @@
                     <div class="col-12">
                         <label class="" for="productid">Product Name</label>
                         <div class="input-group mb-2 mr-sm-2">
-                            <select class="form-control select2" name="productid" id="productids">
+                            <select class="form-control selectpicker select2" name="productid" id="productids">
                                 <option value="">*** Select Product ***</option>
                                 @foreach($getlowproducts as $prod)
                                     <option value="{{ $prod->id }}">{{ $prod->product_name . " =======> ". " Available Qty (". $prod->product_qty .")"}}</option>

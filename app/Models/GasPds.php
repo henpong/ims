@@ -11,22 +11,22 @@ class GasPds extends Model
 
     //Get Category Name Using Eloquent Relation
     public function category(){
-        return $this->belongsTo('App\Categories','category_id');
+        return $this->belongsTo('App\Models\Categories','category_id');
     }
 
 
     public function branch(){
-        return $this->belongsTo("App\Branches","branch_id");
+        return $this->belongsTo("App\Models\Branches","branch_id");
     }
 
 
     public function user(){
-        return $this->belongsTo('App\User','user_id');
+        return $this->belongsTo('App\Models\User','user_id');
     }
 
     // Get Products Details
     public function products(){
-        return $this->belongsTo("App\Products","product_id");
+        return $this->belongsTo("App\Models\Products","product_id");
     }
 
 

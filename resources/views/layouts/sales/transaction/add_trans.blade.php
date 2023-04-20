@@ -234,7 +234,7 @@
                         <div class="col-12">
                             <label class="" for="cashPaid">Cash Paid (GHC)</label>
                             <div class="input-group mb-2 mr-sm-2">
-                                <input type="text" class="form-control" id="paid"  name="paid" onkeyup="paidAmount()" autocomplete="off" placeholder="0.00" min="0.00" style="text-align:right;color: #111111;" />
+                                <input type="text" class="form-control" id="paid"  name="paid" onkeyup="paidAmount()" autocomplete="off" placeholder="0.00" min="0.00" style="text-align:right;color: #111111;" required/>
                             </div>
                             <!-- <span id="paid"></span> -->
                         </div>

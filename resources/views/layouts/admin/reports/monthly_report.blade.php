@@ -87,13 +87,14 @@ $branches = Branches::getbranches();
                 <!-- End of Form -->
                 <br><br>
             </div>
+            @if(!empty($salestrans))
                 @if(!empty($startDate))
                     <h3><center>Transactions Made From <strong>{{ date("jS F, Y ", strtotime( $startDate )) }}</strong> To <strong>{{ date("jS F, Y ", strtotime( $endDate )) }}</strong></center></h3>
                 @else
                     <h4><center><span style="color:#ff0000">Sorry, there was no transaction on this day.</span> &nbsp;&nbsp; Please select another date.</center></h4>
                 @endif
 
-            @if(!empty($salestrans))
+            
 
               <div class="table-responsive ">
                 <table id="lowstocks" class="table data-table mb-0 table-bordered table-striped table-hover table-condensed">

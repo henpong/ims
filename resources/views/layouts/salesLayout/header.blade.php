@@ -9,6 +9,10 @@
 
 //   echo "<pre>"; print_r($image); die;
 
+$branchname = $userdetails->userbranch->branch_name;
+
+// echo "<pre>"; print_r($branchname); die;
+
 ?>
 
 <!DOCTYPE html>
@@ -77,8 +81,12 @@
                   </div>
                     
                   <div class="iq-search-bar device-search">
-                      <span style="margin-right:20px;color:#000fff;font-weight:bold">{{ date('l').' , '.' '.date('jS') .' '.date('F').', '.date('Y') }}</span>
-                        @include('layouts.salesLayout.datetime')
+                    <span style="margin-right:20px;color:#000fff;font-weight:bold">{{ date('l').' , '.' '.date('jS') .' '.date('F').', '.date('Y') }}</span>
+                    <span style="margin-right:20px;"> @include('layouts.salesLayout.datetime') </span>
+
+                    <span style="margin-right:20px;color:#24166B">|</span>
+                        
+                    <span style="color:#ff0000;font-size:20px;font-weight:bold">{{ $branchname }}</span>
                   </div>
 
                   <div class="d-flex align-items-center">

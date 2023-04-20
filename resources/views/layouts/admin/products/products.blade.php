@@ -101,8 +101,8 @@ $branches = Branches::getbranches();
                           <td>
                           <div class="d-flex align-items-center list-action">
                               <a class="mr-3" data-toggle="tootip" data-placement="top" title="Update Product" data-original-title="Update Product" href="{{ url('admin/add_edit_products_in_branches/'.$product->id ) }}"><i class="far fa-edit text-blue" style="font-size:20px;"></i></a>
-                              <a class="confirmDelete ml-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Product"
-                                  href="javascript:void(0)" record="product" recordid="{{ $product->id }}"><i class="fas fa-trash-alt mr-0 text-red" style="font-size:20px;"></i></a>
+                              <!-- <a class="confirmDelete ml-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Product"
+                                  href="javascript:void(0)" record="product" recordid="{{ $product->id }}"><i class="fas fa-trash-alt mr-0 text-red" style="font-size:20px;"></i></a> -->
                           </div>
 
                            

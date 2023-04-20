@@ -5,9 +5,9 @@
 
 
 <?php 
-    use App\Products;
-    use App\TempTrans;
-    use App\Customers;
+    use App\Models\Products;
+    use App\Models\TempTrans;
+    use App\Models\Customers;
 
 
     $getproducts = Products::getproducts();

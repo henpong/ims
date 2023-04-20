@@ -168,6 +168,19 @@
                                   </a>
                               </li>
 
+
+                            @if(Session::get('page')=="gaspds")
+                                <?php $active = "active"; ?>
+                            @else 
+                                <?php $active = ""; ?>
+                            @endif
+                            <li class="">
+                                <a href="{{ url('sales/gas_pds') }}" class="nav-link  {{ $active }}">
+                                    <i class="fas fa-wine-bottle text-red"></i><span>Gas Pounds</span>
+                                </a>
+                            </li>
+
+
                             @if(Session::get('page')=="returnedstock")
                                 <?php $active = "active"; ?>
                             @else 

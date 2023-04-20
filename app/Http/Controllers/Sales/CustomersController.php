@@ -315,6 +315,7 @@ class CustomersController extends Controller
 
         // Get Customer Details And Balance
         $custdetails = Customers::where('id',$id)->where('status',2)->first();
+        // echo "<pre>"; print_r($custdetails); die;
 
 
         // Calculate for Creditor's Balance
@@ -371,7 +372,7 @@ class CustomersController extends Controller
 
 
 
-
+ 
 
 
 

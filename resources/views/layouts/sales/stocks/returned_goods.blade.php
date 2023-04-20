@@ -3,8 +3,8 @@
 
 <?php
     use Illuminate\Support\Facades\Auth;
-    use App\ReturnedGoods;
-    // use App\Customers;
+    use App\Models\ReturnedGoods;
+    // use App\Models\Customers;
 
     $getproducts = ReturnedGoods::getproducts();
     // dd($getproducts); die;
